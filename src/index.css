@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 200 98% 39%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.75rem;
+
+    /* Custom fitness app colors */
+    --dark-blue: 221 83% 27%;
+    --blue: 221 91% 60%;
+    --sky-blue: 200 98% 39%;
+    --charcoal: 222 84% 5%;
+    --light-grey: 220 14% 96%;
+
+    /* Dynamic background gradient colors */
+    --background-start-hsl: 222 47% 11%;
+    --background-end-hsl: 215 39% 17%;
+    --background-start: hsl(var(--background-start-hsl));
+    --background-end: hsl(var(--background-end-hsl));
+  }
+
+  :root[data-theme="red"] { --primary: 0 84% 60%; --accent: 0 72% 51%; --ring: 0 84% 60%; --background-start-hsl: 0 30% 11%; --background-end-hsl: 0 25% 17%; }
+  :root[data-theme="green"] { --primary: 142 76% 36%; --accent: 142 66% 46%; --ring: 142 76% 36%; --background-start-hsl: 142 30% 11%; --background-end-hsl: 142 25% 17%; }
+  :root[data-theme="yellow"] { --primary: 48 96% 53%; --accent: 48 86% 63%; --ring: 48 96% 53%; --background-start-hsl: 48 30% 11%; --background-end-hsl: 48 25% 17%; }
+  :root[data-theme="pink"] { --primary: 322 91% 56%; --accent: 322 81% 66%; --ring: 322 91% 56%; --background-start-hsl: 322 30% 11%; --background-end-hsl: 322 25% 17%; }
+  :root[data-theme="purple"] { --primary: 262 83% 58%; --accent: 262 73% 68%; --ring: 262 83% 58%; --background-start-hsl: 262 30% 11%; --background-end-hsl: 262 25% 17%; }
+  :root[data-theme="indigo"] { --primary: 226 78% 54%; --accent: 226 68% 64%; --ring: 226 78% 54%; --background-start-hsl: 226 30% 11%; --background-end-hsl: 226 25% 17%; }
+  :root[data-theme="teal"] { --primary: 169 81% 33%; --accent: 169 71% 43%; --ring: 169 81% 33%; --background-start-hsl: 169 30% 11%; --background-end-hsl: 169 25% 17%; }
+  :root[data-theme="orange"] { --primary: 25 95% 53%; --accent: 25 85% 63%; --ring: 25 95% 53%; --background-start-hsl: 25 30% 11%; --background-end-hsl: 25 25% 17%; }
+  :root[data-theme="cyan"] { --primary: 190 94% 42%; --accent: 190 84% 52%; --ring: 190 94% 42%; --background-start-hsl: 190 30% 11%; --background-end-hsl: 190 25% 17%; }
+  :root[data-theme="emerald"] { --primary: 158 80% 38%; --accent: 158 70% 48%; --ring: 158 80% 38%; --background-start-hsl: 158 30% 11%; --background-end-hsl: 158 25% 17%; }
+  :root[data-theme="rose"] { --primary: 347 91% 56%; --accent: 347 81% 66%; --ring: 347 91% 56%; --background-start-hsl: 347 30% 11%; --background-end-hsl: 347 25% 17%; }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-slate-900 text-foreground font-roboto;
+    background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+    min-height: 100vh;
+  }
+
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-effect {
+    background-color: hsla(var(--background-end-hsl), 0.8);
+    @apply backdrop-blur-sm border;
+    border-color: color-mix(in srgb, hsl(var(--background-end-hsl)), #ffffff26);
+  }
+  
+  .workout-card {
+    @apply glass-effect rounded-xl p-4 transition-all duration-300 hover:scale-105;
+  }
+
+  .workout-card:hover {
+    background-color: color-mix(in srgb, hsl(var(--background-end-hsl)), #fff 10%);
+  }
+
+  .nav-background {
+    background-color: hsla(var(--background-start-hsl), 0.95);
+    border-color: hsl(var(--background-end-hsl));
+    @apply border-t;
+  }
+  
+  .primary-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+    .accent-gradient {
+    background: linear-gradient(135deg, hsl(var(--accent)) 0%, color-mix(in srgb, hsl(var(--accent)), #fff 20%));
+  }
+
+  /* Changelog notification animations */
+  @keyframes slideInFromTop {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-from-top {
+    animation: slideInFromTop 0.5s ease-out;
+  }
+
+  .animate-in {
+    animation: slideInFromTop 0.3s ease-out;
+  }
+
+  .slide-in-from-top-4 {
+    transform: translateY(-1rem);
+  }
+
+  /* Watery/Glassy transition animations */
+  @keyframes watery-in {
+    from {
+      transform: scale(0.95) translateZ(0);
+      opacity: 0;
+      filter: blur(10px) saturate(1.5);
+    }
+    to {
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+      filter: blur(0px) saturate(1);
+    }
+  }
+
+  @keyframes watery-out {
+    from {
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+      filter: blur(0px) saturate(1);
+    }
+    to {
+      transform: scale(1.05) translateZ(0);
+      opacity: 0;
+      filter: blur(10px) saturate(1.5);
+    }
+  }
+
+  .animate-watery-in {
+    animation: watery-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-watery-out {
+    animation: watery-out 0.3s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  }
+}

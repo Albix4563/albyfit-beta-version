@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Albyfit - La tua app per il fitness</title>
+    <meta name="description" content="Albyfit - Gestisci i tuoi allenamenti e raggiungi i tuoi obiettivi fitness" />
+    <meta name="author" content="Albyfit" />
+
+    <meta property="og:title" content="Albyfit - La tua app per il fitness" />
+    <meta property="og:description" content="Gestisci i tuoi allenamenti e raggiungi i tuoi obiettivi fitness" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1E3A8A" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Albyfit" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/lovable-uploads/5810f614-299f-4d1a-a0e8-97b3811225a1.png" type="image/png">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+    
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

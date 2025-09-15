@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.unstable", "esnext"],
+    "types": ["https://deno.land/x/deno@v1.36.4/types/lib.deno.ns.d.ts"]
+  },
+  "importMap": "./import_map.json"
+}
