@@ -11,12 +11,13 @@ import SupabaseAuthForm from '@/components/SupabaseAuthForm';
 import { AuthProvider, useSupabaseAuth } from '@/hooks/useSupabaseAuth';
 import { useChangelogNotifications } from '@/hooks/useChangelogNotifications';
 import { TimerProvider, useTimer } from '@/contexts/TimerContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 import type { Workout } from '@/hooks/useSupabaseAuth';
 
 const AppContent = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeWorkout, setActiveWorkout] = useState<Workout | null>(null);
-  const [animationClass, setAnimationClass] = useState('animate-watery-in');
   const { user, signOut, loading } = useSupabaseAuth();
   const { isRunning, start, stop } = useTimer();
   
@@ -39,13 +40,7 @@ const AppContent = () => {
 
   const handleTabChange = (newTab: string) => {
     if (newTab === activeTab) return;
-
-    setAnimationClass('animate-watery-out');
-
-    setTimeout(() => {
-      setActiveTab(newTab);
-      setAnimationClass('animate-watery-in');
-    }, 300); // Match out animation duration
+    setActiveTab(newTab);
   };
 
   const handleStartWorkout = (workout?: Workout) => {
@@ -96,47 +91,144 @@ const AppContent = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="glass-effect rounded-2xl p-8 text-center">
-          <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-white">Caricamento...</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20">
+        <LiquidGlass className="p-8 text-center">
+          <motion.div
+            className="w-8 h-8 border-2 border-blue-400 border-t-transparent rounded-full mx-auto mb-4"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <p className="text-white font-medium">Caricamento...</p>
+        </LiquidGlass>
       </div>
     );
   }
 
   if (!user) {
-    return <SupabaseAuthForm />;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20">
+        <SupabaseAuthForm />
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20 relative overflow-hidden">
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Floating gradient orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-r from-pink-500/10 to-orange-500/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+            scale: [1.2, 1, 1.2],
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 pb-20 relative z-10">
         <header className="py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <img 
-                src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png" 
-                alt="Albyfit Logo" 
-                className="w-16 h-16 object-contain"
-              />
-              <div>
-                <h1 className="text-3xl font-poppins font-bold text-white">Albyfit</h1>
-                <p className="text-sm text-slate-400">Ciao, {user.user_metadata?.full_name || user.email}!</p>
-                <p className="text-xs text-slate-500">v0.8.0 [BETA] - Created by Albix4563</p>
+          <LiquidGlass className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <motion.img 
+                  src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png" 
+                  alt="Albyfit Logo" 
+                  className="w-16 h-16 object-contain"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                />
+                <div>
+                  <motion.h1 
+                    className="text-3xl font-poppins font-bold text-white"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    Albyfit
+                  </motion.h1>
+                  <motion.p 
+                    className="text-sm text-slate-300"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    Ciao, {user.user_metadata?.full_name || user.email}!
+                  </motion.p>
+                  <motion.p 
+                    className="text-xs text-slate-400"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    v0.8.0 [BETA] - Created by Albix4563
+                  </motion.p>
+                </div>
               </div>
+              <motion.button 
+                onClick={signOut}
+                className="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Esci
+              </motion.button>
             </div>
-            <button 
-              onClick={signOut}
-              className="text-slate-400 hover:text-white transition-colors"
-            >
-              Esci
-            </button>
-          </div>
+          </LiquidGlass>
         </header>
 
-        <main className={animationClass}>
-          {renderContent()}
+        <main className="relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20, scale: 0.95, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -20, scale: 1.05, filter: "blur(10px)" }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 30,
+                duration: 0.5 
+              }}
+              className="min-h-[60vh]"
+            >
+              {renderContent()}
+            </motion.div>
+          </AnimatePresence>
         </main>
       </div>
 
@@ -153,7 +245,11 @@ const AppContent = () => {
         showNotificationPrompt={showNotificationPrompt}
       />
 
-      <Navigation activeTab={activeTab} onTabChange={handleTabChange} hasNewChangelog={hasNewChangelog} />
+      <Navigation 
+        activeTab={activeTab} 
+        onTabChange={handleTabChange} 
+        hasNewChangelog={hasNewChangelog} 
+      />
     </div>
   );
 };
