@@ -190,14 +190,19 @@ const AppContent = () => {
                   >
                     Ciao, {user.user_metadata?.full_name || user.email}!
                   </motion.p>
-                  <motion.p 
-                    className="text-xs text-slate-400"
+                  <motion.div
+                    className="flex items-center gap-2 mt-1"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    v0.8.0 [BETA] - Created by Albix4563
-                  </motion.p>
+                    <span className="text-xs bg-gradient-to-r from-blue-500 to-purple-500 text-white px-2 py-1 rounded-full font-bold shadow-lg">
+                      v0.9.2 [BETA]
+                    </span>
+                    <span className="text-xs text-slate-400">
+                      - Created by Albix4563
+                    </span>
+                  </motion.div>
                 </div>
               </div>
               <motion.button 
