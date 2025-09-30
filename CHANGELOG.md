@@ -1,4 +1,38 @@
-# 📋 Changelog - AlbyFit v0.9.2 [BETA]
+# 📋 Changelog - AlbyFit v0.9.2.1 [RELEASE CANDIDATE]
+
+## [0.9.2.1] - 2025-09-30
+
+### 🆕 **RELEASE CANDIDATE - NUOVE FUNZIONALITÀ GESTIONE DATI**
+- **🗑️ Elimina Cronologia**: Aggiunto pulsante per eliminare completamente la cronologia degli allenamenti recenti dalla Home
+- **♾️ Reset Statistiche**: Aggiunto pulsante per resettare tutte le statistiche (allenamenti mese, streak, media/settimana)
+- **✅ Conferme Sicurezza**: Implementate conferme di sicurezza per prevenire eliminazioni accidentali
+- **🎨 UX Migliorata**: Icone intuitive (Trash2, RotateCcw) e feedback toast per le azioni
+- **🔄 Auto-Refresh**: Aggiornamento automatico dei dati dopo le operazioni di reset
+
+### 🏷️ **VERSION UPDATE & BRANDING**
+- **🔢 Versione**: Aggiornata a v0.9.2.1 [RELEASE CANDIDATE] in package.json e banner
+- **🎨 Banner Header**: Aggiornato badge versione nel header principale dell'app
+- **📝 Changelog**: Sistema di versionamento aggiornato per Release Candidate
+
+### 🔧 **TECHNICAL IMPROVEMENTS**
+- **📦 Supabase Integration**: Implementate funzioni di eliminazione dati sicure via Supabase client
+- **🔔 Toast Notifications**: Feedback utente migliorato con notifiche toast per successo/errore
+- **⚙️ Error Handling**: Gestione errori robusta per operazioni database critiche
+- **🔄 State Management**: RefreshAuth automatico dopo modifiche dati per consistenza UI
+
+### 🎨 **UI/UX REFINEMENTS**
+- **🔴 Danger Actions**: Pulsante elimina cronologia con colore rosso per chiarezza
+- **🟡 Warning Actions**: Pulsante reset statistiche con colore giallo per attenzione
+- **📍 Positioning**: Posizionamento strategico dei pulsanti per migliore usabilità
+- **♾️ Icon Consistency**: Icone coerenti e intuitive per tutte le azioni
+
+### 🔍 **ACCESSIBILITY & SAFETY**
+- **❗ Confirmation Dialogs**: Window.confirm per prevenire eliminazioni accidentali
+- **📝 Clear Messaging**: Messaggi esplicativi per le conseguenze delle azioni
+- **♾️ Undo Prevention**: Avvisi che le azioni non possono essere annullate
+- **🔒 User ID Validation**: Controlli di sicurezza per operazioni su dati utente
+
+---
 
 ## [0.9.2] - 2025-09-30
 
@@ -9,7 +43,7 @@
 - **💎 Dynamic Gradients**: Gradienti adattivi che reagiscono al contenuto e alle interazioni
 - **🌌 Floating Elements**: Particelle e orbs fluttuanti per atmosfera immersiva
 
-### 🧺 **NAVIGATION REDESIGN COMPLETO**
+### 🧳 **NAVIGATION REDESIGN COMPLETO**
 - **🎢 Conditional Timer Tab**: Tab Timer ora appare/scompare dinamicamente durante allenamento attivo
 - **✨ Liquid Tab Animations**: Transizioni fluide tra le tab con effetti morphing e layout ID
 - **🔥 Enhanced Contrast**: Migliorato drasticamente il contrasto per massima accessibilità (21:1 ratio)
@@ -64,26 +98,19 @@
 
 ### 📝 **VERSION & BRANDING**
 - **🏷️ Version Update**: Aggiornata versione a 0.9.2 [BETA] in tutta l'applicazione
-- **📆 Package.json**: Nome progetto aggiornato a "albyfit-beta-version"
+- **📦 Package.json**: Nome progetto aggiornato a "albyfit-beta-version"
 - **🎨 Header Badge**: Nuovo badge gradiente per versione nel header
 - **📝 Changelog System**: Sistema di changelog completamente rinnovato
 
 ---
 
-### 🚀 **MIGRAZIONE DESIGN v0.8.0 → v0.9.2**
-Questa release rappresenta una **trasformazione completa** dell'interfaccia utente, passando da un design classico a un'esperienza **Liquid Glass** premium ispirata a iOS 26. Ogni aspetto dell'app è stato riprogettato per offrire un'esperienza utente moderna, fluida e coinvolgente.
+### 🚀 **RELEASE CANDIDATE NOTES - v0.9.2.1**
+Questa versione Release Candidate introduce funzionalità critiche per la gestione dei dati utente, consentendo di eliminare cronologia allenamenti e resettare statistiche in modo sicuro. È un passo importante verso la versione finale 1.0.0, focalizzato sulla gestione completa dei dati personali.
 
-**🔄 Breaking Changes:** Nessuno - Tutti i dati utente e le funzionalità rimangono intatti.
-
-**🎨 Design Philosophy:** Passaggio da "functional minimalism" a "liquid premium experience"
-
-**📊 Performance Impact:** +15% fluidità, -10% utilizzo memoria grazie alle ottimizzazioni
-
-**📋 Development Notes:**
-- Tutti i componenti ora seguono il design system Liquid Glass
-- Migliorata consistenza visiva in tutta l'applicazione  
-- Implementato sistema di design tokens per manutenibilità
-- Aggiunto supporto per future estensioni del tema
+**🔒 Data Management:** Controllo completo sui propri dati di allenamento
+**⚙️ Safety First:** Conferme multiple per prevenire perdite accidentali
+**📊 User Control:** Pieno controllo sulle statistiche e cronologia personale
+**🚀 Verso 1.0:** Preparazione per il rilascio finale di produzione
 
 ---
 
