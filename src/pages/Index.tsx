@@ -1,10 +1,8 @@
-
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Dashboard from '@/components/Dashboard';
 import WorkoutManager from '@/components/WorkoutManager';
 import WorkoutTimer from '@/components/WorkoutTimer';
-import Progress from '@/components/Progress';
 import ExerciseWiki from '@/components/ExerciseWiki';
 import Profile from '@/components/Profile';
 import ChangelogGrouped from '@/components/ChangelogGrouped';
@@ -74,8 +72,6 @@ const AppContent = () => {
         return <WorkoutManager onStartWorkout={handleStartWorkout} />;
       case 'timer':
         return <WorkoutTimer onComplete={handleCompleteWorkout} workout={workoutForTimer} />;
-      case 'progress':
-        return <Progress />;
       case 'wiki':
         return <ExerciseWiki />;
       case 'changelog':
