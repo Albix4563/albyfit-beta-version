@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, Dumbbell, Timer, FileText, User } from 'lucide-react';
+import { useTimer } from '@/contexts/TimerContext';
 
 interface NavigationProps {
   activeTab: string;
@@ -8,13 +9,24 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewChangelog }) => {
-  const tabs = [
+  const { isRunning } = useTimer();
+
+  // Base tabs without Timer
+  const baseTabs = [
     { id: 'dashboard', label: 'Home', icon: Home },
     { id: 'workouts', label: 'Allenamenti', icon: Dumbbell },
-    { id: 'timer', label: 'Timer', icon: Timer },
     { id: 'changelog', label: 'Changelog', icon: FileText },
     { id: 'profile', label: 'Profilo', icon: User },
   ];
+
+  // Add Timer tab only when running
+  const tabs = isRunning
+    ? [
+        ...baseTabs.slice(0, 2), // Home, Allenamenti
+        { id: 'timer', label: 'Timer', icon: Timer },
+        ...baseTabs.slice(2) // Changelog, Profilo
+      ]
+    : baseTabs;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 nav-background backdrop-blur-lg z-50">
