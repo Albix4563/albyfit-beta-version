@@ -65,7 +65,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                   className={`
                     relative overflow-hidden rounded-xl p-3 transition-all duration-200 group
                     ${activeTab === tab.id 
-                      ? 'bg-blue-500 border-2 border-blue-300/90 shadow-xl shadow-blue-500/60' 
+                      ? 'bg-blue-800 border-2 border-blue-100 shadow-2xl shadow-blue-400/90 ring-1 ring-white/80' 
                       : 'hover:bg-slate-700/60 border border-transparent hover:border-slate-600/50'
                     }
                   `}
@@ -78,7 +78,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                     <div className="relative">
                       <tab.icon className={`h-5 w-5 transition-colors duration-200 ${
                         activeTab === tab.id 
-                          ? 'text-white font-bold drop-shadow-md' 
+                          ? 'text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]' 
                           : 'text-slate-300 group-hover:text-white'
                       }`} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
                       
@@ -103,7 +103,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                     
                     <span className={`text-xs transition-colors duration-200 ${
                       activeTab === tab.id 
-                        ? 'text-white font-bold drop-shadow-md' 
+                        ? 'text-white font-extrabold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]' 
                         : 'text-slate-300 group-hover:text-white font-medium'
                     }`}>
                       {tab.label}
@@ -114,12 +114,12 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                   {activeTab === tab.id && (
                     <>
                       <motion.div
-                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600/40 to-blue-500/40"
+                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-900/60 to-blue-700/60"
                         layoutId="activeTab"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                       <motion.div
-                        className="absolute inset-0 rounded-xl bg-white/10 blur-sm"
+                        className="absolute inset-0 rounded-xl bg-white/20 blur-sm"
                         layoutId="activeTabGlow"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
