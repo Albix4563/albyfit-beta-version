@@ -65,7 +65,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                   className={`
                     relative overflow-hidden rounded-xl p-3 transition-all duration-200 group
                     ${activeTab === tab.id 
-                      ? 'bg-blue-600/90 border border-blue-400/60 shadow-lg shadow-blue-500/30' 
+                      ? 'bg-blue-600 border-2 border-blue-300 shadow-lg shadow-blue-500/50' 
                       : 'hover:bg-slate-700/60 border border-transparent hover:border-slate-600/50'
                     }
                   `}
@@ -113,7 +113,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                   {/* Active state background */}
                   {activeTab === tab.id && (
                     <motion.div
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600/20 to-blue-500/20"
+                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-700/30 to-blue-600/30"
                       layoutId="activeTab"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />

@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
-interface LiquidButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface LiquidButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onAnimationStart' | 'onAnimationEnd' | 'onAnimationIteration'> {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "accent" | "ghost";
   size?: "sm" | "md" | "lg";
 }
 
 export const LiquidButton = forwardRef<HTMLButtonElement, LiquidButtonProps>(
-  ({ children, className, variant = "primary", size = "md", disabled, ...props }, ref) => {
+  ({ children, className, variant = "primary", size = "md", disabled, onClick, type, ...rest }, ref) => {
     const variants = {
       primary: `
         bg-gradient-to-r from-blue-500/80 to-purple-500/80 backdrop-blur-xl
@@ -44,6 +44,8 @@ export const LiquidButton = forwardRef<HTMLButtonElement, LiquidButtonProps>(
     return (
       <motion.button
         ref={ref}
+        type={type}
+        onClick={onClick}
         className={cn(
           "relative overflow-hidden rounded-xl font-medium transition-all duration-300",
           "focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-0",
@@ -56,7 +58,6 @@ export const LiquidButton = forwardRef<HTMLButtonElement, LiquidButtonProps>(
         whileTap={!disabled ? { scale: 0.98 } : undefined}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         disabled={disabled}
-        {...props}
       >
         <span className="relative z-10 flex items-center justify-center gap-2">
           {children}
