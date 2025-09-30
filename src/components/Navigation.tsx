@@ -65,7 +65,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                   className={`
                     relative overflow-hidden rounded-xl p-3 transition-all duration-200 group
                     ${activeTab === tab.id 
-                      ? 'bg-blue-600 border-2 border-blue-300 shadow-lg shadow-blue-500/50' 
+                      ? 'bg-blue-500 border-2 border-blue-300/90 shadow-xl shadow-blue-500/60' 
                       : 'hover:bg-slate-700/60 border border-transparent hover:border-slate-600/50'
                     }
                   `}
@@ -78,9 +78,9 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                     <div className="relative">
                       <tab.icon className={`h-5 w-5 transition-colors duration-200 ${
                         activeTab === tab.id 
-                          ? 'text-white' 
+                          ? 'text-white font-bold drop-shadow-md' 
                           : 'text-slate-300 group-hover:text-white'
-                      }`} />
+                      }`} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
                       
                       {/* Changelog notification */}
                       {tab.id === 'changelog' && hasNewChangelog && (
@@ -94,34 +94,41 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                       {/* Timer pulse effect */}
                       {tab.id === 'timer' && activeTab === tab.id && (
                         <motion.div
-                          className="absolute inset-0 bg-blue-300/40 rounded-full"
+                          className="absolute inset-0 bg-white/40 rounded-full"
                           animate={{ scale: [1, 1.3], opacity: [0.6, 0] }}
                           transition={{ duration: 1.2, repeat: Infinity }}
                         />
                       )}
                     </div>
                     
-                    <span className={`text-xs font-medium transition-colors duration-200 ${
+                    <span className={`text-xs transition-colors duration-200 ${
                       activeTab === tab.id 
-                        ? 'text-white' 
-                        : 'text-slate-300 group-hover:text-white'
+                        ? 'text-white font-bold drop-shadow-md' 
+                        : 'text-slate-300 group-hover:text-white font-medium'
                     }`}>
                       {tab.label}
                     </span>
                   </motion.div>
                   
-                  {/* Active state background */}
+                  {/* Enhanced active state background */}
                   {activeTab === tab.id && (
-                    <motion.div
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-700/30 to-blue-600/30"
-                      layoutId="activeTab"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
+                    <>
+                      <motion.div
+                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600/40 to-blue-500/40"
+                        layoutId="activeTab"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                      <motion.div
+                        className="absolute inset-0 rounded-xl bg-white/10 blur-sm"
+                        layoutId="activeTabGlow"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    </>
                   )}
                   
-                  {/* Shimmer effect on hover */}
+                  {/* Enhanced shimmer effect */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100"
                     initial={{ x: '-100%' }}
                     whileHover={{ x: '100%' }}
                     transition={{ duration: 0.5 }}
