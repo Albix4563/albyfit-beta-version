@@ -21,7 +21,71 @@ interface Change {
   description: string;
 }
 
-const CHANGELOG_ENTRIES = [  {
+const CHANGELOG_ENTRIES = [
+  {
+    version: "0.9.2 [BETA]",
+    date: "30 Settembre 2025", 
+    type: "major" as const,
+    changes: [
+      {
+        type: "feature" as const,
+        description: "🎨 Liquid Glass Design System: Implementato completamente nuovo design ispirato a iOS 26 con effetti vetro dinamici"
+      },
+      {
+        type: "feature" as const,
+        description: "🔮 Backdrop Blur Effects: Sistema avanzato di trasparenze dinamiche con backdrop-blur cross-browser"
+      },
+      {
+        type: "feature" as const,
+        description: "🌊 Framer Motion Integration: Aggiunto sistema di animazioni fluide con spring physics per micro-interazioni"
+      },
+      {
+        type: "feature" as const,
+        description: "🧭 Navigation Redesign: Tab Timer condizionale che appare/scompare dinamicamente durante allenamento attivo"
+      },
+      {
+        type: "feature" as const,
+        description: "💫 Floating Particles & Gradient Orbs: Particelle animate e sfere luminose per atmosfera immersiva"
+      },
+      {
+        type: "feature" as const,
+        description: "✨ Shimmer Effects: Effetti di scorrimento luminoso su hover per tutti gli elementi interattivi"
+      },
+      {
+        type: "improvement" as const,
+        description: "🔥 Enhanced Contrast: Migliorato drasticamente il contrasto per massima accessibilità (21:1 ratio)"
+      },
+      {
+        type: "improvement" as const,
+        description: "📱 Touch Optimized: Ottimizzati touch targets e feedback tattile per dispositivi mobili"
+      },
+      {
+        type: "improvement" as const,
+        description: "🎭 Watery Transitions: Transizioni liquide tra le pagine con blur effects dinamici"
+      },
+      {
+        type: "improvement" as const,
+        description: "🎨 Dynamic CSS Variables: Sistema di variabili per liquid glass effects e consistenza visiva"
+      },
+      {
+        type: "fix" as const,
+        description: "✅ Navigation Responsiveness: Risolti problemi di navigazione non reattiva su dispositivi mobile"
+      },
+      {
+        type: "fix" as const,
+        description: "✅ Selected Tab Visibility: Tab selezionata ora perfettamente visibile con testo bold e background solido"
+      },
+      {
+        type: "fix" as const,
+        description: "✅ Timer Tab Logic: Fix logica condizionale per apparizione/scomparsa tab Timer durante allenamento"
+      },
+      {
+        type: "fix" as const,
+        description: "✅ Performance Optimization: Ottimizzate animazioni per prestazioni fluide su tutti i dispositivi"
+      }
+    ]
+  },
+  {
     version: "0.8.0 [BETA]",
     date: "16 Giugno 2025", 
     type: "major" as const,
@@ -332,7 +396,7 @@ const getChangeIcon = (type: ChangeType) => {
 };
 
 const ChangelogGrouped = () => {
-  const [expandedVersions, setExpandedVersions] = useState<Set<string>>(new Set(['0.8.0 [BETA]']));
+  const [expandedVersions, setExpandedVersions] = useState<Set<string>>(new Set(['0.9.2 [BETA]']));
   const [isSendingNotification, setIsSendingNotification] = useState(false);
   const { user } = useSupabaseAuth();
   const { toast } = useToast();
