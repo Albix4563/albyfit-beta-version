@@ -1,7 +1,8 @@
-
 import React from 'react';
 import { useSupabaseAuth } from '@/hooks/useSupabaseAuth';
-import { Check, Rocket } from 'lucide-react';
+import { Check, Rocket, Trash2, RotateCcw } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface DashboardProps {
   onStartWorkout: (workout?: any) => void;
@@ -9,7 +10,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) => {
-  const { workouts, workoutSessions, user } = useSupabaseAuth();
+  const { workouts, workoutSessions, user, refreshAuth } = useSupabaseAuth();
 
   // Calcola statistiche dall'ultimo mese
   const lastMonth = new Date();
@@ -64,6 +65,50 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
     onStartWorkout(workout);
   };
 
+  const handleClearWorkouts = async () => {
+    if (!user || !window.confirm('Sei sicuro di voler eliminare tutta la cronologia degli allenamenti? Questa azione non può essere annullata.')) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('workout_sessions')
+        .delete()
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+
+      toast.success('Cronologia allenamenti eliminata con successo!');
+      refreshAuth?.();
+    } catch (error) {
+      console.error('Errore nell\'eliminazione della cronologia:', error);
+      toast.error('Errore nell\'eliminazione della cronologia');
+    }
+  };
+
+  const handleResetStats = async () => {
+    if (!user || !window.confirm('Sei sicuro di voler resettare tutte le statistiche? Questa azione eliminerà tutti i dati degli allenamenti completati.')) {
+      return;
+    }
+
+    try {
+      // Elimina tutte le sessioni completate per resettare le statistiche
+      const { error } = await supabase
+        .from('workout_sessions')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('completed', true);
+
+      if (error) throw error;
+
+      toast.success('Statistiche resettate con successo!');
+      refreshAuth?.();
+    } catch (error) {
+      console.error('Errore nel reset delle statistiche:', error);
+      toast.error('Errore nel reset delle statistiche');
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
@@ -97,6 +142,16 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
             <div className="text-2xl font-bold text-purple-400">{avgWorkoutsPerWeek}</div>
             <div className="text-sm text-slate-400">Media/settimana</div>
           </div>
+        </div>
+        {/* Pulsante Reset Statistiche */}
+        <div className="flex justify-center mt-4">
+          <button 
+            onClick={handleResetStats}
+            className="bg-yellow-600 hover:bg-yellow-700 text-black font-bold rounded-lg px-4 py-2 text-xs shadow transition-colors duration-200 flex items-center gap-2"
+          >
+            <RotateCcw className="w-4 h-4" />
+            Resetta Statistiche
+          </button>
         </div>
       </div>
 
@@ -132,7 +187,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
           </h3>
           <p className="text-slate-400 mb-4">
             Crea il tuo primo allenamento per iniziare!
-          </p>          <button 
+          </p>
+          <button 
             onClick={() => onTabChange('workouts')}
             className="accent-gradient text-white px-6 py-3 rounded-lg font-medium hover:scale-105 transition-transform"
           >
@@ -144,7 +200,16 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
       {/* Recent Workouts */}
       {recentWorkouts.length > 0 && (
         <div>
-          <h3 className="text-lg font-poppins font-semibold text-white mb-4">Allenamenti Recenti</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-poppins font-semibold text-white">Allenamenti Recenti</h3>
+            <button 
+              onClick={handleClearWorkouts}
+              className="bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2 text-xs shadow transition-colors duration-200 flex items-center gap-2"
+            >
+              <Trash2 className="w-4 h-4" />
+              Elimina Cronologia
+            </button>
+          </div>
           <div className="space-y-3">
             {recentWorkouts.map((session) => (
               <div key={session.id} className="workout-card">
@@ -154,7 +219,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
                     <p className="text-sm text-slate-400">
                       {new Date(session.start_time).toLocaleDateString('it-IT')} • {Math.round((session.total_duration || 0) / 60)} min
                     </p>
-                  </div>                  <div className="text-right">
+                  </div>
+                  <div className="text-right">
                     <div className="text-sm font-medium text-green-400 flex items-center gap-1">
                       <Check className="w-4 h-4" />
                       Completato
@@ -170,7 +236,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
         </div>
       )}
 
-      {/* Motivational Message */}      {workoutSessions.length === 0 && (
+      {/* Motivational Message */}
+      {workoutSessions.length === 0 && (
         <div className="glass-effect rounded-2xl p-6 text-center">
           <h3 className="text-lg font-poppins font-semibold text-white mb-2 flex items-center justify-center gap-2">
             <Rocket className="w-5 h-5" />
