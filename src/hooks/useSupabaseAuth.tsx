@@ -169,7 +169,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signOut = async (): Promise<void> => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut({ scope: 'local' });
+    } catch (error) {
+      console.error('Sign out error:', error);
+      // Force local sign out even if server fails
+      setUser(null);
+      setWorkouts([]);
+      setWorkoutSessions([]);
+      setExerciseNotes([]);
+    }
   };
 
   const resetUserData = async (): Promise<void> => {
