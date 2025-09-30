@@ -39,6 +39,7 @@ const AppContent = () => {
   }, [activeTab, isRunning]);
 
   const handleTabChange = (newTab: string) => {
+    console.log('Tab change requested:', newTab); // Debug log
     if (newTab === activeTab) return;
     setActiveTab(newTab);
   };
@@ -114,23 +115,23 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20 relative overflow-hidden">
-      {/* Animated background particles */}
+      {/* Reduced animated background particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            className="absolute w-1 h-1 bg-white/15 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-              scale: [1, 1.5, 1],
+              y: [0, -50, 0],
+              opacity: [0, 0.6, 0],
+              scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: 4 + Math.random() * 2,
               repeat: Infinity,
               delay: Math.random() * 2,
             }}
@@ -138,23 +139,23 @@ const AppContent = () => {
         ))}
       </div>
 
-      {/* Floating gradient orbs */}
+      {/* Reduced floating gradient orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+          className="absolute top-1/4 left-1/4 w-48 h-48 bg-gradient-to-r from-blue-500/8 to-purple-500/8 rounded-full blur-3xl"
           animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -25, 0],
+            scale: [1, 1.1, 1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-r from-pink-500/10 to-orange-500/10 rounded-full blur-3xl"
+          className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/6 to-orange-500/6 rounded-full blur-3xl"
           animate={{
-            x: [0, -80, 0],
-            y: [0, 60, 0],
-            scale: [1.2, 1, 1.2],
+            x: [0, -40, 0],
+            y: [0, 30, 0],
+            scale: [1.1, 1, 1.1],
           }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
@@ -162,14 +163,14 @@ const AppContent = () => {
 
       <div className="container mx-auto px-4 pb-20 relative z-10">
         <header className="py-6">
-          <LiquidGlass className="p-4">
+          <LiquidGlass intensity="heavy" className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <motion.img 
                   src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png" 
                   alt="Albyfit Logo" 
                   className="w-16 h-16 object-contain"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 />
                 <div>
@@ -182,7 +183,7 @@ const AppContent = () => {
                     Albyfit
                   </motion.h1>
                   <motion.p 
-                    className="text-sm text-slate-300"
+                    className="text-sm text-slate-200"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
@@ -201,7 +202,7 @@ const AppContent = () => {
               </div>
               <motion.button 
                 onClick={signOut}
-                className="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+                className="text-slate-300 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -215,18 +216,20 @@ const AppContent = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 20, scale: 0.95, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -20, scale: 1.05, filter: "blur(10px)" }}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -15, scale: 1.02 }}
               transition={{ 
                 type: "spring", 
                 stiffness: 300, 
-                damping: 30,
-                duration: 0.5 
+                damping: 25,
+                duration: 0.4 
               }}
               className="min-h-[60vh]"
             >
-              {renderContent()}
+              <div className="text-white">
+                {renderContent()}
+              </div>
             </motion.div>
           </AnimatePresence>
         </main>
