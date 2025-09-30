@@ -9,8 +9,18 @@ interface ChangelogEntry {
   type: 'major' | 'minor' | 'patch';
 }
 
-// Hardcoded changelog entries (in a real app, this could come from an API)
+// Updated changelog entries with v0.9.2 [BETA] as latest
 const CHANGELOG_ENTRIES: ChangelogEntry[] = [
+  {
+    version: "0.9.2 [BETA]",
+    date: "30 Settembre 2025",
+    type: "major"
+  },
+  {
+    version: "0.8.0 [BETA]",
+    date: "16 Giugno 2025", 
+    type: "major"
+  },
   {
     version: "0.7.5 [BETA]",
     date: "14 Giugno 2025",
@@ -22,7 +32,7 @@ const CHANGELOG_ENTRIES: ChangelogEntry[] = [
     type: "major"
   },
   {
-    version: "0.8.0 [BETA]",
+    version: "0.7.0 [BETA]",
     date: "31 Maggio 2025",
     type: "major"
   },
