@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Dashboard from '@/components/Dashboard';
 import WorkoutManager from '@/components/WorkoutManager';
@@ -10,6 +10,7 @@ import ChangelogNotification from '@/components/ChangelogNotification';
 import SupabaseAuthForm from '@/components/SupabaseAuthForm';
 import { AuthProvider, useSupabaseAuth } from '@/hooks/useSupabaseAuth';
 import { useChangelogNotifications } from '@/hooks/useChangelogNotifications';
+import { TimerProvider, useTimer } from '@/contexts/TimerContext';
 import type { Workout } from '@/hooks/useSupabaseAuth';
 
 const AppContent = () => {
@@ -17,6 +18,7 @@ const AppContent = () => {
   const [activeWorkout, setActiveWorkout] = useState<Workout | null>(null);
   const [animationClass, setAnimationClass] = useState('animate-watery-in');
   const { user, signOut, loading } = useSupabaseAuth();
+  const { isRunning, start, stop } = useTimer();
   
   const {
     hasNewChangelog,
@@ -27,6 +29,13 @@ const AppContent = () => {
     dismissNotification,
     latestVersion
   } = useChangelogNotifications();
+
+  // Redirect from timer tab if timer is not running
+  useEffect(() => {
+    if (activeTab === 'timer' && !isRunning) {
+      setActiveTab('dashboard');
+    }
+  }, [activeTab, isRunning]);
 
   const handleTabChange = (newTab: string) => {
     if (newTab === activeTab) return;
@@ -43,11 +52,13 @@ const AppContent = () => {
     if (workout) {
       setActiveWorkout(workout);
     }
+    start(); // Show Timer tab
     handleTabChange('timer');
   };
 
   const handleCompleteWorkout = () => {
     setActiveWorkout(null);
+    stop(); // Hide Timer tab
     handleTabChange('dashboard');
   };
 
@@ -71,7 +82,7 @@ const AppContent = () => {
       case 'workouts':
         return <WorkoutManager onStartWorkout={handleStartWorkout} />;
       case 'timer':
-        return <WorkoutTimer onComplete={handleCompleteWorkout} workout={workoutForTimer} />;
+        return isRunning ? <WorkoutTimer onComplete={handleCompleteWorkout} workout={workoutForTimer} /> : null;
       case 'wiki':
         return <ExerciseWiki />;
       case 'changelog':
@@ -150,7 +161,9 @@ const AppContent = () => {
 const Index = () => {
   return (
     <AuthProvider>
-      <AppContent />
+      <TimerProvider>
+        <AppContent />
+      </TimerProvider>
     </AuthProvider>
   );
 };
