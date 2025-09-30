@@ -16,61 +16,6 @@ const CHANGELOG_ENTRIES: ChangelogEntry[] = [
     date: "30 Settembre 2025",
     type: "major"
   },
-  {
-    version: "0.8.0 [BETA]",
-    date: "16 Giugno 2025", 
-    type: "major"
-  },
-  {
-    version: "0.7.5 [BETA]",
-    date: "14 Giugno 2025",
-    type: "minor"
-  },
-  {
-    version: "0.7.2 [BETA]",
-    date: "14 Giugno 2025",
-    type: "major"
-  },
-  {
-    version: "0.7.0 [BETA]",
-    date: "31 Maggio 2025",
-    type: "major"
-  },
-  {
-    version: "0.6.8 [BETA]",
-    date: "30 Maggio 2025",
-    type: "minor"
-  },
-  {
-    version: "0.6.7 [BETA]",
-    date: "30 Maggio 2025",
-    type: "minor"
-  },
-  {
-    version: "0.6.5 [BETA]",
-    date: "30 Maggio 2025",
-    type: "patch"
-  },
-  {
-    version: "0.6.1 [BETA]",
-    date: "30 Maggio 2025",
-    type: "minor"
-  },
-  {
-    version: "0.6.0 [BETA]",
-    date: "30 Maggio 2025",
-    type: "major"
-  },
-  {
-    version: "0.5.1 [BETA]", 
-    date: "29 Maggio 2025",
-    type: "minor"
-  },
-  {
-    version: "0.5 [BETA]",
-    date: "28 Maggio 2025", 
-    type: "major"
-  }
 ];
 
 export const useChangelogNotifications = () => {
