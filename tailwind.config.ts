@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -68,6 +67,10 @@ export default {
 				'poppins': ['Poppins', 'sans-serif'],
 				'roboto': ['Roboto', 'sans-serif'],
 			},
+			backdropBlur: {
+				'xs': '2px',
+				'3xl': '64px',
+			},
 			keyframes: {
 				'accordion-down': {
 					from: {
@@ -102,13 +105,75 @@ export default {
 					'100%': {
 						transform: 'translateY(0)'
 					}
+				},
+				'float': {
+					'0%, 100%': { 
+						transform: 'translateY(0px) rotate(0deg)' 
+					},
+					'50%': { 
+						transform: 'translateY(-20px) rotate(1deg)' 
+					},
+				},
+				'shimmer': {
+					'0%': { 
+						backgroundPosition: '-200% 0' 
+					},
+					'100%': { 
+						backgroundPosition: '200% 0' 
+					},
+				},
+				'liquid-pulse': {
+					'0%, 100%': { 
+						boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 40px rgba(168, 85, 247, 0.4)' 
+					},
+				},
+				'liquid-morph': {
+					'0%, 100%': { 
+						borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' 
+					},
+					'50%': { 
+						borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%' 
+					},
+				},
+				'watery-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px) scale(0.95)',
+						filter: 'blur(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0) scale(1)',
+						filter: 'blur(0px)'
+					}
+				},
+				'watery-out': {
+					'0%': {
+						opacity: '1',
+						transform: 'translateY(0) scale(1)',
+						filter: 'blur(0px)'
+					},
+					'100%': {
+						opacity: '0',
+						transform: 'translateY(-20px) scale(1.05)',
+						filter: 'blur(10px)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.3s ease-out',
-				'slide-up': 'slide-up 0.3s ease-out'
+				'slide-up': 'slide-up 0.3s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'shimmer': 'shimmer 2s linear infinite',
+				'liquid-pulse': 'liquid-pulse 3s ease-in-out infinite',
+				'liquid-morph': 'liquid-morph 8s ease-in-out infinite',
+				'watery-in': 'watery-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+				'watery-out': 'watery-out 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards'
 			}
 		}
 	},
