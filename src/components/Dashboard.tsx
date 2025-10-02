@@ -1,16 +1,119 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSupabaseAuth } from '@/hooks/useSupabaseAuth';
-import { Check, Rocket, Trash2, RotateCcw } from 'lucide-react';
+import { Check, Rocket, Trash2, RotateCcw, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { motion, AnimatePresence } from 'framer-motion';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 interface DashboardProps {
   onStartWorkout: (workout?: any) => void;
   onTabChange: (tab: string) => void;
 }
 
+// Modal personalizzato per le conferme
+interface ConfirmModalProps {
+  isOpen: boolean;
+  title: string;
+  message: string;
+  confirmText: string;
+  confirmColor: 'red' | 'orange';
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ 
+  isOpen, 
+  title, 
+  message, 
+  confirmText, 
+  confirmColor, 
+  onConfirm, 
+  onCancel 
+}) => {
+  const colorClasses = {
+    red: 'bg-red-500 hover:bg-red-600 focus:ring-red-500',
+    orange: 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-500'
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ 
+              type: "spring", 
+              damping: 25, 
+              stiffness: 400, 
+              mass: 0.8 
+            }}
+            className="w-full max-w-md"
+          >
+            <LiquidGlass 
+              intensity="heavy" 
+              variant="card"
+              className="p-6"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-white font-poppins">
+                  {title}
+                </h3>
+                <button
+                  onClick={onCancel}
+                  className="text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <p className="text-slate-300 mb-6 leading-relaxed">
+                {message}
+              </p>
+              
+              <div className="flex gap-3 justify-end">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={onCancel}
+                  className="px-5 py-2.5 rounded-xl bg-slate-600/50 hover:bg-slate-600/70 
+                           text-white font-medium transition-all duration-200 
+                           border border-slate-500/50 hover:border-slate-400/50"
+                >
+                  Annulla
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={onConfirm}
+                  className={`px-5 py-2.5 rounded-xl text-white font-semibold 
+                            transition-all duration-200 focus:ring-2 focus:ring-offset-2 
+                            focus:ring-offset-slate-800 shadow-lg 
+                            ${colorClasses[confirmColor]}`}
+                >
+                  {confirmText}
+                </motion.button>
+              </div>
+            </LiquidGlass>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) => {
   const { workouts, workoutSessions, user, refreshAuth } = useSupabaseAuth();
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [showClearModal, setShowClearModal] = useState(false);
 
   // Calcola statistiche dall'ultimo mese
   const lastMonth = new Date();
@@ -66,9 +169,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
   };
 
   const handleClearWorkouts = async () => {
-    if (!user || !window.confirm('Sei sicuro di voler eliminare tutta la cronologia degli allenamenti? Questa azione non può essere annullata.')) {
-      return;
-    }
+    setShowClearModal(false);
 
     try {
       const { error } = await supabase
@@ -87,9 +188,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
   };
 
   const handleResetStats = async () => {
-    if (!user || !window.confirm('Sei sicuro di voler resettare tutte le statistiche? Questa azione eliminerà tutti i dati degli allenamenti completati.')) {
-      return;
-    }
+    setShowResetModal(false);
 
     try {
       // Elimina tutte le sessioni completate per resettare le statistiche
@@ -143,15 +242,17 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
             <div className="text-sm text-slate-400">Media/settimana</div>
           </div>
         </div>
-        {/* Pulsante Reset Statistiche */}
+        {/* Pulsante Reset Statistiche con Modal Personalizzato */}
         <div className="flex justify-center mt-4">
-          <button 
-            onClick={handleResetStats}
-            className="bg-yellow-600 hover:bg-yellow-700 text-black font-bold rounded-lg px-4 py-2 text-xs shadow transition-colors duration-200 flex items-center gap-2"
+          <motion.button 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setShowResetModal(true)}
+            className="bg-yellow-600 hover:bg-yellow-700 text-black font-bold rounded-lg px-4 py-2 text-xs shadow transition-all duration-200 flex items-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
             Resetta Statistiche
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -202,13 +303,15 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
         <div>
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-poppins font-semibold text-white">Allenamenti Recenti</h3>
-            <button 
-              onClick={handleClearWorkouts}
-              className="bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2 text-xs shadow transition-colors duration-200 flex items-center gap-2"
+            <motion.button 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setShowClearModal(true)}
+              className="bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2 text-xs shadow transition-all duration-200 flex items-center gap-2"
             >
               <Trash2 className="w-4 h-4" />
               Elimina Cronologia
-            </button>
+            </motion.button>
           </div>
           <div className="space-y-3">
             {recentWorkouts.map((session) => (
@@ -248,6 +351,28 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
           </p>
         </div>
       )}
+
+      {/* Modal Reset Statistiche */}
+      <ConfirmModal
+        isOpen={showResetModal}
+        title="Reset Statistiche"
+        message="Sei sicuro di voler resettare tutte le statistiche? Questa azione eliminerà tutti i dati degli allenamenti completati."
+        confirmText="Resetta"
+        confirmColor="orange"
+        onConfirm={handleResetStats}
+        onCancel={() => setShowResetModal(false)}
+      />
+
+      {/* Modal Elimina Cronologia */}
+      <ConfirmModal
+        isOpen={showClearModal}
+        title="Elimina Cronologia"
+        message="Sei sicuro di voler eliminare tutta la cronologia degli allenamenti? Questa azione non può essere annullata."
+        confirmText="Elimina"
+        confirmColor="red"
+        onConfirm={handleClearWorkouts}
+        onCancel={() => setShowClearModal(false)}
+      />
     </div>
   );
 };
