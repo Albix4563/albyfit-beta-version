@@ -9,7 +9,7 @@ interface ChangelogEntry {
   type: 'major' | 'minor' | 'patch';
 }
 
-// Updated changelog entries with v0.9.2 [BETA] as latest
+// Updated changelog entries with v0.9.3 [RELEASE CANDIDATE] as latest
 const CHANGELOG_ENTRIES: ChangelogEntry[] = [
   {
     version: "0.9.2 [BETA]",

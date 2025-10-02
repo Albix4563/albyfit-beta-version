@@ -32,10 +32,10 @@ interface Release {
 
 const Changelog: React.FC<ChangelogProps> = ({ onClose }) => {
   const [hasSeenLatest, setHasSeenLatest] = useState(false);
-  const [expandedReleases, setExpandedReleases] = useState(new Set(['0.9.3']));
+  const [expandedReleases, setExpandedReleases] = useState(new Set(['0.9.3 [RELEASE CANDIDATE]']));
   const [showNewFeatureModal, setShowNewFeatureModal] = useState(false);
 
-  const currentVersion = "0.9.3";
+  const currentVersion = "0.9.3 [RELEASE CANDIDATE]";
 
   useEffect(() => {
     const lastSeenVersion = localStorage.getItem('lastSeenVersion');
@@ -64,18 +64,26 @@ const Changelog: React.FC<ChangelogProps> = ({ onClose }) => {
 
   const releases: Release[] = [
     {
-      version: "0.9.3",
+      version: "0.9.3 [RELEASE CANDIDATE]",
       date: "2 Ottobre 2025",
       isLatest: true,
       changes: [
         {
           type: 'feature',
+          title: '🚀 Miglioramenti Critici',
+          items: [
+            'Dashboard Statistics Refresh - Statistiche si aggiornano automaticamente senza ricaricare la pagina',
+            'Smart Statistics Reset - Funzione di reset che aggiorna immediatamente l\'interfaccia',
+            'Real-time Data Updates - Tutti i reset ora aggiornano l\'UI in tempo reale'
+          ]
+        },
+        {
+          type: 'feature',
           title: '✨ Nuove Funzionalità',
           items: [
-            'Modal personalizzati per sostituire i dialog nativi del browser',
-            'Sistema di conferma unificato con design coerente',
-            'Sistema di notifiche per aggiornamenti app con badge animato',
-            'Modal changelog integrato per informare sulle novità'
+            'Funzione refreshAuth centralizzata per ricarica intelligente dei dati',
+            'Sistema di gestione stato ottimizzato con Promise.all per caricamenti paralleli',
+            'Feedback immediato per tutte le operazioni di modifica dati'
           ]
         },
         {
@@ -113,7 +121,7 @@ const Changelog: React.FC<ChangelogProps> = ({ onClose }) => {
       ]
     },
     {
-      version: "0.9.2.1",
+      version: "0.9.2 [BETA]",
       date: "1 Ottobre 2025",
       changes: [
         {
@@ -128,7 +136,7 @@ const Changelog: React.FC<ChangelogProps> = ({ onClose }) => {
       ]
     },
     {
-      version: "0.9.2",
+      version: "0.9.2 [BETA]",
       date: "30 Settembre 2025",
       changes: [
         {

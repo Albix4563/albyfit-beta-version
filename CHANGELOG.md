@@ -2,26 +2,31 @@
 
 Tutte le modifiche importanti a questo progetto verranno documentate in questo file.
 
-## [0.9.3] - 2025-10-02
+## [0.9.3] - 2025-10-02 [RELEASE CANDIDATE]
 
-### 🚀 Miglioramenti
-- **Aggiornamento Versione**: Versione aggiornata alla 0.9.3 per riflettere gli ultimi miglioramenti
-- **Ottimizzazioni Generali**: Miglioramenti delle performance e stabilità dell'applicazione
-- **Documentazione**: Aggiornata la documentazione del progetto
+### 🚀 Miglioramenti Critici
+- **Dashboard Statistics Refresh**: Risolto problema di refresh delle statistiche dopo reset - ora si aggiornano automaticamente senza ricaricare la pagina
+- **State Management Optimization**: Migliorato il sistema di gestione dello stato con funzione `refreshAuth` centralizzata
+- **Performance Enhancements**: Ottimizzazioni delle performance per caricamento più rapido dei dati
+- **Database Operations**: Migliorate le operazioni di reset dei dati con refresh automatico
 
 ### ✨ Nuove Funzionalità
-- **Versioning**: Sistema di versioning migliorato per tracciare meglio gli aggiornamenti
-- **Compatibilità**: Assicurata la compatibilità con le versioni precedenti
+- **Smart Statistics Reset**: Funzione di reset delle statistiche che aggiorna immediatamente l'UI
+- **Real-time Data Updates**: Tutti i reset (statistiche, cronologia, dati utente) ora aggiornano l'interfaccia in tempo reale
+- **Enhanced User Experience**: Feedback immediato per tutte le operazioni di modifica dati
+- **Improved Error Handling**: Gestione errori migliorata per operazioni di reset
 
 ### 🔧 Modifiche Tecniche
-- Aggiornamento dei file di configurazione del progetto
-- Miglioramenti alla struttura del codice
-- Ottimizzazione delle dipendenze
+- **Auth Hook Enhancement**: Aggiunta funzione `refreshAuth()` per ricarica centralizzata dei dati
+- **Dashboard Component**: Aggiornate funzioni di reset per utilizzare `refreshAuth` con await
+- **Data Synchronization**: Migliorata sincronizzazione tra database e stato dell'applicazione
+- **Code Architecture**: Rifattorizzato il codice per una migliore manutenibilità
 
-### 📱 Compatibilità
-- Mantenuto il supporto per tutti i dispositivi
-- Performance ottimizzate per mobile e desktop
-- Interfaccia utente stabile e responsiva
+### 📱 Compatibilità e Stabilità
+- **Mobile Optimization**: Mantenute tutte le ottimizzazioni mobile esistenti
+- **Cross-platform Support**: Compatibilità garantita su tutti i dispositivi
+- **Backward Compatibility**: Mantenuta compatibilità con versioni precedenti
+- **Performance Stability**: Stabilità delle performance migliorata
 
 ---
 

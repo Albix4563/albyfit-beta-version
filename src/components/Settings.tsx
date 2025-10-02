@@ -25,7 +25,7 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
   const { theme, setTheme } = useTheme();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   
-  const currentVersion = "0.9.3";
+  const currentVersion = "0.9.3 [RELEASE CANDIDATE]";
   const releaseDate = "2 Ottobre 2025";
 
   const themes = [

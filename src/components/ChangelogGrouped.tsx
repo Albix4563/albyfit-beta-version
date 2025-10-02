@@ -23,53 +23,49 @@ interface Change {
 
 const CHANGELOG_ENTRIES = [
   {
-    version: "0.9.2 [BETA]",
-    date: "30 Settembre 2025", 
+    version: "0.9.3 [RELEASE CANDIDATE]",
+    date: "2 Ottobre 2025",
     type: "major" as const,
     changes: [
       {
         type: "feature" as const,
-        description: "🎨 Liquid Glass Design System: Implementato completamente nuovo design ispirato a iOS 26 con effetti vetro dinamici"
+        description: "🚀 Dashboard Statistics Refresh: Risolto problema di refresh delle statistiche dopo reset - ora si aggiornano automaticamente senza ricaricare la pagina"
       },
       {
         type: "feature" as const,
-        description: "🔮 Backdrop Blur Effects: Sistema avanzato di trasparenze dinamiche con backdrop-blur cross-browser"
+        description: "⚡ Smart Statistics Reset: Funzione di reset delle statistiche che aggiorna immediatamente l'UI"
       },
       {
         type: "feature" as const,
-        description: "🌊 Framer Motion Integration: Aggiunto sistema di animazioni fluide con spring physics per micro-interazioni"
-      },
-      {
-        type: "feature" as const,
-        description: "🧭 Navigation Redesign: Tab Timer condizionale che appare/scompare dinamicamente durante allenamento attivo"
-      },
-      {
-        type: "feature" as const,
-        description: "💫 Floating Particles & Gradient Orbs: Particelle animate e sfere luminose per atmosfera immersiva"
-      },
-      {
-        type: "feature" as const,
-        description: "✨ Shimmer Effects: Effetti di scorrimento luminoso su hover per tutti gli elementi interattivi"
+        description: "🔄 Real-time Data Updates: Tutti i reset (statistiche, cronologia, dati utente) ora aggiornano l'interfaccia in tempo reale"
       },
       {
         type: "improvement" as const,
-        description: "🔥 Enhanced Contrast: Migliorato drasticamente il contrasto per massima accessibilità (21:1 ratio)"
+        description: "🛠️ State Management Optimization: Migliorato il sistema di gestione dello stato con funzione refreshAuth centralizzata"
       },
       {
         type: "improvement" as const,
-        description: "📱 Touch Optimized: Ottimizzati touch targets e feedback tattile per dispositivi mobili"
+        description: "⚡ Performance Enhancements: Ottimizzazioni delle performance per caricamento più rapido dei dati"
       },
       {
         type: "improvement" as const,
-        description: "🎭 Watery Transitions: Transizioni liquide tra le pagine con blur effects dinamici"
+        description: "💾 Database Operations: Migliorate le operazioni di reset dei dati con refresh automatico"
       },
       {
         type: "improvement" as const,
-        description: "🎨 Dynamic CSS Variables: Sistema di variabili per liquid glass effects e consistenza visiva"
+        description: "✨ Enhanced User Experience: Feedback immediato per tutte le operazioni di modifica dati"
       },
       {
-        type: "fix" as const,
-        description: "✅ Navigation Responsiveness: Risolti problemi di navigazione non reattiva su dispositivi mobile"
+        type: "improvement" as const,
+        description: "🛡️ Improved Error Handling: Gestione errori migliorata per operazioni di reset"
+      },
+      {
+        type: "improvement" as const,
+        description: "📱 Mobile Optimization: Mantenute tutte le ottimizzazioni mobile esistenti"
+      },
+      {
+        type: "improvement" as const,
+        description: "🔧 Code Architecture: Rifattorizzato il codice per una migliore manutenibilità"
       },
       {
         type: "fix" as const,
@@ -127,7 +123,7 @@ const getChangeIcon = (type: ChangeType) => {
 };
 
 const ChangelogGrouped = () => {
-  const [expandedVersions, setExpandedVersions] = useState<Set<string>>(new Set(['0.9.2 [BETA]']));
+  const [expandedVersions, setExpandedVersions] = useState<Set<string>>(new Set(['0.9.3 [RELEASE CANDIDATE]']));
   const [isSendingNotification, setIsSendingNotification] = useState(false);
   const { user } = useSupabaseAuth();
   const { toast } = useToast();

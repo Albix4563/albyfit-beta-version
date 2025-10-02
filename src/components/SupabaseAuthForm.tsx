@@ -131,7 +131,7 @@ const SupabaseAuthForm: React.FC = () => {
             {isLogin ? 'Non hai un account? Registrati' : 'Hai già un account? Accedi'}
           </button>
         </div>        <div className="mt-8 text-xs text-slate-500 text-center">
-          <p>v0.9.2 [BETA] - Created by Albix4563</p>
+          <p>v0.9.3 [RELEASE CANDIDATE] - Created by Albix4563</p>
         </div>
       </div>
     </div>

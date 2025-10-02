@@ -197,7 +197,7 @@ const AppContent = () => {
                     transition={{ delay: 0.4 }}
                   >
                     <span className="text-xs bg-gradient-to-r from-blue-500 to-purple-500 text-white px-2 py-1 rounded-full font-bold shadow-lg">
-                      v0.9.2.1 [RELEASE CANDIDATE]
+                      v0.9.3 [RELEASE CANDIDATE]
                     </span>
                     <span className="text-xs text-slate-400">
                       - Created by Albix4563
