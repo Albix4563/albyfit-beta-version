@@ -1,6 +1,6 @@
 # Albyfit - Professional Fitness Tracker
 
-**Version**: 0.8.0[BETA]
+**Version**: 0.9.3[BETA]
 **Created by**: Albix4563
 
 ## Descrizione
