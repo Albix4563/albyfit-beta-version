@@ -48,11 +48,11 @@
     --background-start: hsl(var(--background-start-hsl));
     --background-end: hsl(var(--background-end-hsl));
 
-    /* Subtle mobile navigation variables - browser-like */
-    --mobile-nav-bg: rgba(255, 255, 255, 0.08);
-    --mobile-nav-border: rgba(255, 255, 255, 0.12);
-    --mobile-nav-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
-    --mobile-nav-backdrop: blur(16px) saturate(120%);
+    /* Readable mobile navigation variables */
+    --mobile-nav-bg: rgba(255, 255, 255, 0.15);
+    --mobile-nav-border: rgba(255, 255, 255, 0.20);
+    --mobile-nav-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    --mobile-nav-backdrop: blur(8px) saturate(140%);
   }
 
   :root[data-theme="red"] { --primary: 0 84% 60%; --accent: 0 72% 51%; --ring: 0 84% 60%; --background-start-hsl: 0 30% 11%; --background-end-hsl: 0 25% 17%; }
@@ -152,14 +152,14 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
   
-  /* Subtle mobile navigation glass effect - browser-like */
+  /* Readable mobile navigation glass effect */
   .mobile-nav-glass {
     background: var(--mobile-nav-bg);
     backdrop-filter: var(--mobile-nav-backdrop);
     -webkit-backdrop-filter: var(--mobile-nav-backdrop);
     border: 1px solid var(--mobile-nav-border);
     box-shadow: var(--mobile-nav-shadow),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
   
   /* Enhanced workout card */
@@ -192,38 +192,38 @@
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
   }
   
-  /* Subtle mobile navigation specific styles */
+  /* Readable mobile navigation specific styles */
   .mobile-nav-button {
     @apply relative overflow-hidden rounded-xl transition-all duration-200;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
   }
   
   .mobile-nav-button-active {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
   
   .mobile-nav-button-inactive {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid transparent;
   }
   
   .mobile-nav-button-inactive:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.15);
   }
   
-  /* Subtle text contrast for mobile navigation */
+  /* Clear text contrast for mobile navigation */
   .mobile-nav-text {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    filter: brightness(110%);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    filter: brightness(115%);
   }
   
   .mobile-nav-icon {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
   }
   
   /* Liquid gradients */
@@ -298,15 +298,15 @@
     }
   }
 
-  /* Subtle mobile navigation glow animation */
-  @keyframes subtleGlow {
+  /* Clear mobile navigation glow animation */
+  @keyframes clearGlow {
     0%, 100% {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
     50% {
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
   }
 
@@ -322,8 +322,8 @@
     animation: shimmerFlow 1.8s linear infinite;
   }
 
-  .animate-subtle-glow {
-    animation: subtleGlow 3s ease-in-out infinite;
+  .animate-clear-glow {
+    animation: clearGlow 3s ease-in-out infinite;
   }
 
   /* Watery/Liquid transition animations - reduced intensity */
@@ -387,26 +387,26 @@
     @apply hover:scale-105 active:scale-95 transition-all duration-200;
   }
 
-  /* Media queries for subtle mobile-specific optimizations */
+  /* Media queries for readable mobile navigation */
   @media (max-width: 768px) {
     .mobile-nav-glass {
-      backdrop-filter: blur(18px) saturate(130%);
-      -webkit-backdrop-filter: blur(18px) saturate(130%);
-      background: rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      background: rgba(255, 255, 255, 0.16);
     }
     
     .mobile-nav-button-active {
-      background: rgba(255, 255, 255, 0.18);
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.18);
     }
   }
   
   @media (max-width: 480px) {
     .mobile-nav-glass {
-      backdrop-filter: blur(20px) saturate(140%);
-      -webkit-backdrop-filter: blur(20px) saturate(140%);
-      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      background: rgba(255, 255, 255, 0.18);
     }
   }
 }
