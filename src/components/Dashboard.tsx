@@ -179,8 +179,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
 
       if (error) throw error;
 
+      await refreshAuth();
       toast.success('Cronologia allenamenti eliminata con successo!');
-      refreshAuth?.();
     } catch (error) {
       console.error('Errore nell\'eliminazione della cronologia:', error);
       toast.error('Errore nell\'eliminazione della cronologia');
@@ -200,8 +200,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
 
       if (error) throw error;
 
+      await refreshAuth();
       toast.success('Statistiche resettate con successo!');
-      refreshAuth?.();
     } catch (error) {
       console.error('Errore nel reset delle statistiche:', error);
       toast.error('Errore nel reset delle statistiche');

@@ -78,6 +78,7 @@ interface AuthContextType {
   loadWorkouts: () => Promise<void>;
   loadWorkoutSessions: () => Promise<void>;
   loadExerciseNotes: () => Promise<void>;
+  refreshAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -208,8 +209,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       // Ricarica i dati per riflettere i cambiamenti
-      setWorkoutSessions([]);
-      setExerciseNotes([]);
+      await loadWorkoutSessions();
+      await loadExerciseNotes();
       
       // Le schede di allenamento rimangono intatte
       console.log('Dati utente resettati con successo');
@@ -299,9 +300,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       // Ricarica tutti i dati per riflettere i cambiamenti
-      setWorkouts([]);
-      setWorkoutSessions([]);
-      setExerciseNotes([]);
+      await loadWorkouts();
+      await loadWorkoutSessions();
+      await loadExerciseNotes();
       
       console.log('Tutti i dati utente sono stati resettati con successo - l\'utente è come appena registrato');
     } catch (error) {
@@ -647,6 +648,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const refreshAuth = async () => {
+    await Promise.all([
+      loadWorkouts(),
+      loadWorkoutSessions(),
+      loadExerciseNotes()
+    ]);
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -667,7 +676,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       resetAllUserData,
       loadWorkouts,
       loadWorkoutSessions,
-      loadExerciseNotes
+      loadExerciseNotes,
+      refreshAuth
     }}>
       {children}
     </AuthContext.Provider>
