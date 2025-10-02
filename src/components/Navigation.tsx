@@ -66,8 +66,8 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                   className={`
                     relative overflow-hidden rounded-xl p-3 transition-all duration-200 group
                     ${activeTab === tab.id 
-                      ? 'bg-white/20 border border-white/25 shadow-lg shadow-black/10' 
-                      : 'hover:bg-white/10 border border-transparent hover:border-white/15'
+                      ? 'bg-white/25 border border-white/30 shadow-lg shadow-black/15' 
+                      : 'hover:bg-white/15 border border-transparent hover:border-white/20'
                     }
                   `}
                 >
@@ -80,23 +80,23 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                       <tab.icon className={`h-5 w-5 transition-colors duration-200 ${
                         activeTab === tab.id 
                           ? 'text-white stroke-[2px] drop-shadow-sm' 
-                          : 'text-white/80 group-hover:text-white stroke-[1.5px]'
+                          : 'text-white/85 group-hover:text-white stroke-[1.5px]'
                       }`} />
                       
-                      {/* Changelog notification - più sottile */}
+                      {/* Changelog notification - più definita */}
                       {tab.id === 'changelog' && hasNewChangelog && (
                         <motion.div
-                          className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-400 rounded-full border border-white/50"
+                          className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-400 rounded-full border border-white/60"
                           animate={{ scale: [1, 1.1, 1] }}
                           transition={{ duration: 2, repeat: Infinity }}
                         />
                       )}
                       
-                      {/* Timer pulse effect - più delicato */}
+                      {/* Timer pulse effect - più visibile */}
                       {tab.id === 'timer' && activeTab === tab.id && (
                         <motion.div
-                          className="absolute inset-0 bg-white/15 rounded-full"
-                          animate={{ scale: [1, 1.2], opacity: [0.3, 0] }}
+                          className="absolute inset-0 bg-white/20 rounded-full"
+                          animate={{ scale: [1, 1.2], opacity: [0.4, 0] }}
                           transition={{ duration: 1.8, repeat: Infinity }}
                         />
                       )}
@@ -104,32 +104,32 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewC
                     
                     <span className={`text-xs font-medium transition-all duration-200 ${
                       activeTab === tab.id 
-                        ? 'text-white drop-shadow-sm' 
-                        : 'text-white/80 group-hover:text-white'
+                        ? 'text-white drop-shadow-sm font-semibold' 
+                        : 'text-white/85 group-hover:text-white'
                     }`}>
                       {tab.label}
                     </span>
                   </motion.div>
                   
-                  {/* Active state background - molto più sottile */}
+                  {/* Active state background - più definito */}
                   {activeTab === tab.id && (
                     <>
                       <motion.div
-                        className="absolute inset-0 rounded-xl bg-white/10"
+                        className="absolute inset-0 rounded-xl bg-white/15"
                         layoutId="activeTab"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                       <motion.div
-                        className="absolute inset-0 rounded-xl bg-gradient-to-t from-white/5 to-transparent"
+                        className="absolute inset-0 rounded-xl bg-gradient-to-t from-white/8 to-transparent"
                         layoutId="activeTabHighlight"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     </>
                   )}
                   
-                  {/* Shimmer effect più delicato */}
+                  {/* Shimmer effect più visibile */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100"
                     initial={{ x: '-100%' }}
                     whileHover={{ x: '100%' }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
