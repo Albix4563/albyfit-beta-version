@@ -2,6 +2,29 @@
 
 Tutte le modifiche importanti a questo progetto verranno documentate in questo file.
 
+## [0.9.3] - 2025-10-02
+
+### 🚀 Miglioramenti
+- **Aggiornamento Versione**: Versione aggiornata alla 0.9.3 per riflettere gli ultimi miglioramenti
+- **Ottimizzazioni Generali**: Miglioramenti delle performance e stabilità dell'applicazione
+- **Documentazione**: Aggiornata la documentazione del progetto
+
+### ✨ Nuove Funzionalità
+- **Versioning**: Sistema di versioning migliorato per tracciare meglio gli aggiornamenti
+- **Compatibilità**: Assicurata la compatibilità con le versioni precedenti
+
+### 🔧 Modifiche Tecniche
+- Aggiornamento dei file di configurazione del progetto
+- Miglioramenti alla struttura del codice
+- Ottimizzazione delle dipendenze
+
+### 📱 Compatibilità
+- Mantenuto il supporto per tutti i dispositivi
+- Performance ottimizzate per mobile e desktop
+- Interfaccia utente stabile e responsiva
+
+---
+
 ## [Versione Migliorata Mobile] - 2025-10-02
 
 ### 🚀 Miglioramenti
