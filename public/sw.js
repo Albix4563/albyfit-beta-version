@@ -1,7 +1,6 @@
-
 // Service Worker per gestire le notifiche PWA di Albyfit
-const CACHE_NAME = 'albyfit-v0.9.2';
-const CURRENT_VERSION = '0.9.2 [BETA]';
+const CACHE_NAME = 'albyfit-v0.9.3';
+const CURRENT_VERSION = '0.9.3 [BETA]';
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
