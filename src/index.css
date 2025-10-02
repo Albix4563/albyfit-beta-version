@@ -47,6 +47,12 @@
     --background-end-hsl: 215 39% 17%;
     --background-start: hsl(var(--background-start-hsl));
     --background-end: hsl(var(--background-end-hsl));
+
+    /* Mobile navigation variables */
+    --mobile-nav-bg: rgba(15, 23, 42, 0.98);
+    --mobile-nav-border: rgba(255, 255, 255, 0.4);
+    --mobile-nav-shadow: 0 -4px 32px rgba(0, 0, 0, 0.7);
+    --mobile-nav-backdrop: blur(24px) saturate(180%);
   }
 
   :root[data-theme="red"] { --primary: 0 84% 60%; --accent: 0 72% 51%; --ring: 0 84% 60%; --background-start-hsl: 0 30% 11%; --background-end-hsl: 0 25% 17%; }
@@ -146,6 +152,17 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
   
+  /* Mobile navigation enhanced glass effect */
+  .mobile-nav-glass {
+    background: var(--mobile-nav-bg);
+    backdrop-filter: var(--mobile-nav-backdrop);
+    -webkit-backdrop-filter: var(--mobile-nav-backdrop);
+    border-top: 1px solid var(--mobile-nav-border);
+    box-shadow: var(--mobile-nav-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
   /* Enhanced workout card */
   .workout-card {
     @apply liquid-glass rounded-2xl p-6 transition-all duration-300;
@@ -174,6 +191,43 @@
     -webkit-backdrop-filter: blur(20px) saturate(150%);
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Mobile navigation specific styles */
+  .mobile-nav-button {
+    @apply relative overflow-hidden rounded-2xl transition-all duration-200;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .mobile-nav-button-active {
+    background: linear-gradient(135deg, 
+      rgba(59, 130, 246, 0.9) 0%, 
+      rgba(37, 99, 235, 0.95) 50%, 
+      rgba(29, 78, 216, 0.9) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.9),
+                0 0 0 2px rgba(255, 255, 255, 0.8);
+  }
+  
+  .mobile-nav-button-inactive {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid transparent;
+  }
+  
+  .mobile-nav-button-inactive:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Enhanced text contrast for mobile navigation */
+  .mobile-nav-text {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    filter: brightness(125%) contrast(120%);
+  }
+  
+  .mobile-nav-icon {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) brightness(125%);
   }
   
   /* Liquid gradients */
@@ -248,6 +302,18 @@
     }
   }
 
+  /* Mobile navigation pulse animation */
+  @keyframes mobileNavPulse {
+    0%, 100% {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.9),
+                  0 0 0 2px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(59, 130, 246, 1),
+                  0 0 0 3px rgba(255, 255, 255, 0.9);
+    }
+  }
+
   .animate-slide-in-from-top {
     animation: slideInFromTop 0.5s cubic-bezier(0.34, 1.26, 0.64, 1);
   }
@@ -258,6 +324,10 @@
 
   .animate-shimmer-flow {
     animation: shimmerFlow 1.8s linear infinite;
+  }
+
+  .animate-mobile-nav-pulse {
+    animation: mobileNavPulse 2s ease-in-out infinite;
   }
 
   /* Watery/Liquid transition animations - reduced intensity */
@@ -319,5 +389,30 @@
   .btn-glass {
     @apply glass-effect px-4 py-2 rounded-xl text-white font-medium;
     @apply hover:scale-105 active:scale-95 transition-all duration-200;
+  }
+
+  /* Media queries for mobile-specific optimizations */
+  @media (max-width: 768px) {
+    .mobile-nav-glass {
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.99) 0%, 
+        rgba(30, 41, 59, 0.97) 50%, 
+        rgba(15, 23, 42, 0.99) 100%);
+    }
+    
+    .mobile-nav-button-active {
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.95),
+                  0 0 0 2px rgba(255, 255, 255, 0.85),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mobile-nav-glass {
+      backdrop-filter: blur(32px) saturate(220%);
+      -webkit-backdrop-filter: blur(32px) saturate(220%);
+    }
   }
 }
