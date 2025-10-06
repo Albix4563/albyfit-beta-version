@@ -122,6 +122,7 @@ export type Database = {
       exercises: {
         Row: {
           created_at: string
+          day: string | null
           id: string
           machine: string | null
           name: string
@@ -132,6 +133,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          day?: string | null
           id?: string
           machine?: string | null
           name: string
@@ -142,6 +144,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          day?: string | null
           id?: string
           machine?: string | null
           name?: string

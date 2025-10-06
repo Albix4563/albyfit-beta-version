@@ -527,7 +527,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           machine: exercise.machine || null,
           workout_id: workout.id,
           order_index: index,
-          // day: exercise.day || null // Temporarily commented out for debugging
+          day: exercise.day || null
         }));
 
         const { data: insertedExercises, error: exercisesError } = await supabase

@@ -104,13 +104,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
   const { toast } = useToast();
   
   // CRITICAL SECURITY: Only import session and note functions - NEVER workout modification functions
-  console.log('SECURITY CHECK: WorkoutTimer only importing safe functions');
   const { saveWorkoutSession, saveExerciseNote, getExerciseNotes } = useSupabaseAuth();
-  
-  // SECURITY: Verify no workout modification functions are accessible
-  console.log('SECURITY: Checking for workout modification functions...');
-  console.log('saveWorkout available:', typeof (useSupabaseAuth as any).saveWorkout);
-  console.log('updateWorkout available:', typeof (useSupabaseAuth as any).updateWorkout);
 
   // Day selection for multi-day workouts
   const days = workout?.days?.map(d => d.day) || ["Giorno 1"];
@@ -278,7 +272,6 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
 
   // Safe onComplete function - GUARANTEED to only call onComplete
   const safeOnComplete = useCallback(() => {
-    console.log('SAFE COMPLETION: Only calling onComplete, no workout modifications');
     if (onCompleteCalledRef.current || !isMountedRef.current) return;
     onCompleteCalledRef.current = true;
     
@@ -286,21 +279,15 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
     
     // SECURITY: ONLY call onComplete to return to previous screen - NO DATA MODIFICATIONS
     setTimeout(() => {
-      console.log('EXECUTION: Calling onComplete - no workout data will be touched');
       onComplete();
     }, 0);
   }, [onComplete, cleanup]);
 
   // ULTIMATE SECURITY: This function is COMPLETELY ISOLATED from workout modification
   const endWorkoutSession = useCallback(async () => {
-    console.log('ULTIMATE SECURITY: endWorkoutSession starting - ZERO workout modifications allowed');
     if (!workout || !isMountedRef.current || onCompleteCalledRef.current) return; 
     
     try {
-      console.log('CRITICAL SECURITY: Saving ONLY workout session for:', workout.id, workoutName);
-      console.log('CRITICAL SECURITY: NO saveWorkout, NO updateWorkout, NO deleteWorkout calls');
-      console.log('CRITICAL SECURITY: NO exercise modifications of any kind');
-      
       // MAXIMUM SECURITY: ONLY save the workout session - ZERO workout data access
       await saveWorkoutSession({
         workout_id: workout.id,
@@ -311,18 +298,14 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
         completed: true
       });
       
-      console.log('ULTIMATE SUCCESS: Workout session saved - ZERO workout data was accessed');
-      
       toast({
         title: "Allenamento completato!",
         description: "Sessione salvata con successo",
       });
       
-      // SECURE RETURN: Only return to previous screen
-      console.log('SECURE RETURN: Going back without any data modifications');
       safeOnComplete();
     } catch (error) {
-      console.error('SECURE ERROR HANDLING: Session save error (no workout data touched):', error);
+      console.error('Error saving workout session:', error);
       
       toast({
         title: "Errore",
@@ -330,8 +313,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
         variant: "destructive"
       });
       
-      // SECURE FALLBACK: Still go back even if there's an error
-      console.log('SECURE FALLBACK: Going back despite error (no workout data touched)');
+      // Still go back even if there's an error
       safeOnComplete();
     }
   }, [workout, workoutName, workoutStartTime, saveWorkoutSession, toast, safeOnComplete]);

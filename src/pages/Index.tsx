@@ -39,7 +39,6 @@ const AppContent = () => {
   }, [activeTab, isRunning]);
 
   const handleTabChange = (newTab: string) => {
-    console.log('Tab change requested:', newTab); // Debug log
     if (newTab === activeTab) return;
     setActiveTab(newTab);
   };

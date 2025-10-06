@@ -12,6 +12,11 @@ interface ChangelogEntry {
 // Updated changelog entries with v0.9.3 [RELEASE CANDIDATE] as latest
 const CHANGELOG_ENTRIES: ChangelogEntry[] = [
   {
+    version: "0.9.3 [RELEASE CANDIDATE]",
+    date: "6 Ottobre 2025",
+    type: "major"
+  },
+  {
     version: "0.9.2 [BETA]",
     date: "30 Settembre 2025",
     type: "major"
