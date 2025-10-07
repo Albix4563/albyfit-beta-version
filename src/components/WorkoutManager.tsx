@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSupabaseAuth } from '@/hooks/useSupabaseAuth';
 import type { Workout, Exercise, ExerciseSet } from '@/hooks/useSupabaseAuth';
-import ExerciseImporter from './ExerciseImporter';
 import { Download, Trash2, Youtube, Image, Edit, Lightbulb, ArrowUp, ArrowDown, Plus, Minus, Dumbbell } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
@@ -30,7 +29,6 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
   const { toast } = useToast();
   const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
   const [isCreating, setIsCreating] = useState(false);
-  const [isImportingExercises, setIsImportingExercises] = useState(false);
   const [isAddingExercise, setIsAddingExercise] = useState(false);
   const [editingExerciseId, setEditingExerciseId] = useState<string | null>(null);
   const [newWorkoutName, setNewWorkoutName] = useState('');
@@ -68,7 +66,7 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
       isCardio: false,
       duration: 8
     });
-  }, [isCreating, isImportingExercises]);
+  }, [isCreating]);
 
   // Categorizzazione automatica degli esercizi con miglior rilevazione cardio
   const categorizeExercise = (exerciseName: string): string => {
@@ -199,44 +197,6 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
     });
   };
 
-  const handleExercisesImported = (exercises: Exercise[]) => {
-    if (selectedWorkout) {
-      // Process imported exercises to detect cardio exercises
-      // MA NON auto-categorizzare come cardio a meno che non sia esplicitamente indicato
-      const processedExercises = exercises.map(exercise => {
-        // Solo se le note contengono esplicitamente "cardio" lo consideriamo cardio
-        const isExplicitCardio = exercise.notes.toLowerCase().includes('cardio');
-          
-        if (isExplicitCardio) {
-          // Per esercizi cardio espliciti, assicura durata minima 8 minuti
-          const duration = exercise.sets?.[0]?.reps ? 
-            Math.max(parseInt(exercise.sets[0].reps.toString()) || 8, 8) : 8;
-          
-          return {
-            ...exercise,
-            sets: [{ id: '1', set_number: 1, reps: duration, target_weight: undefined, notes: 'min' }],
-            rest_time: Math.max(exercise.rest_time, 60),
-            notes: exercise.notes.includes('Cardio -') ? exercise.notes : `Cardio - generale - ${exercise.notes}`.trim()
-          };
-        }
-        
-        // Per tutti gli altri esercizi, mantieni come sono (non auto-cardio)
-        return {
-          ...exercise,
-          sets: exercise.sets || [{ id: '1', set_number: 1, reps: 10, target_weight: undefined, notes: '' }],
-          rest_time: Math.max(exercise.rest_time, 60)
-        };
-      });
-
-      const updatedWorkout = {
-        ...selectedWorkout,
-        exercises: [...(selectedWorkout.exercises || []), ...processedExercises]
-      };
-      updateWorkout(updatedWorkout);
-      setSelectedWorkout(updatedWorkout);
-      setIsImportingExercises(false);
-    }
-  };
   const createWorkout = async () => {
     if (!newWorkoutName.trim()) {
       toast({
@@ -555,15 +515,6 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
     if (selectedDay === day) setSelectedDay(days[0]);
   };
 
-  if (isImportingExercises) {
-    return (
-      <ExerciseImporter
-        onExercisesExtracted={handleExercisesImported}
-        onClose={() => setIsImportingExercises(false)}
-      />
-    );
-  }
-
   if (isCreating) {
     return (
       <div className="space-y-6">
@@ -621,13 +572,6 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
           </button>
           <h2 className="text-xl font-poppins font-bold text-white">{selectedWorkout.title}</h2>
           <div className="flex space-x-2">            
-            <button 
-              onClick={() => setIsImportingExercises(true)}
-              className="text-green-400 hover:text-green-300"
-              title="Analisi AI esercizi"
-            >
-              <Download className="w-5 h-5" />
-            </button>
             <button 
               onClick={() => handleDeleteWorkout(selectedWorkout.id)}
               className="text-red-400 hover:text-red-300"
