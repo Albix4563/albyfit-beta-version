@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp, Gift, Star, Bug, Bell, Rocket, Wrench, Zap, BarChart3, Dumbbell, Palette, Link } from 'lucide-react';
 import { useSupabaseAuth } from '@/hooks/useSupabaseAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 interface ChangelogEntry {
   version: string;
@@ -258,38 +259,47 @@ const ChangelogGrouped = () => {
 
       <div className="space-y-4">
         {CHANGELOG_ENTRIES.map((entry) => (
-          <Card key={entry.version} className="glass-effect border-slate-700">
-            <CardHeader 
-              className="cursor-pointer hover:bg-slate-800/50 transition-colors"
+          <LiquidGlass
+            key={entry.version}
+            intensity="medium"
+            variant="card"
+            size="md"
+            className="border border-slate-700"
+          >
+            <div
+              className="cursor-pointer rounded-[inherit]"
               onClick={() => toggleVersion(entry.version)}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className={`p-2 rounded-full ${getTypeColor(entry.type)}`}>
-                    {getTypeIcon(entry.type)}
+              <CardHeader className="px-0 pb-4 cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className={`p-2 rounded-full ${getTypeColor(entry.type)}`}>
+                      {getTypeIcon(entry.type)}
+                    </div>
+                    <div>
+                      <CardTitle className="text-white text-lg">
+                        {entry.version}
+                      </CardTitle>
+                      <p className="text-slate-400 text-sm">{entry.date}</p>
+                    </div>
+                    <Badge
+                      variant={entry.type === 'major' ? 'default' : 'secondary'}
+                      className={`${getTypeColor(entry.type)} border-none`}
+                    >
+                      {entry.type.toUpperCase()}
+                    </Badge>
                   </div>
-                  <div>
-                    <CardTitle className="text-white text-lg">
-                      {entry.version}
-                    </CardTitle>
-                    <p className="text-slate-400 text-sm">{entry.date}</p>
-                  </div>
-                  <Badge 
-                    variant={entry.type === 'major' ? 'default' : 'secondary'}
-                    className={`${getTypeColor(entry.type)} border-none`}
-                  >
-                    {entry.type.toUpperCase()}
-                  </Badge>
+                  {expandedVersions.has(entry.version) ? (
+                    <ChevronUp className="w-5 h-5 text-slate-400" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-slate-400" />
+                  )}
                 </div>
-                {expandedVersions.has(entry.version) ? 
-                  <ChevronUp className="w-5 h-5 text-slate-400" /> : 
-                  <ChevronDown className="w-5 h-5 text-slate-400" />
-                }
-              </div>
-            </CardHeader>
-            
+              </CardHeader>
+            </div>
+
             {expandedVersions.has(entry.version) && (
-              <CardContent className="pt-0">
+              <CardContent className="pt-0 px-0">
                 <div className="space-y-3">
                   {entry.changes.map((change, index) => (
                     <div key={index} className="flex items-start space-x-3 p-3 bg-slate-800/30 rounded-lg">
@@ -300,7 +310,7 @@ const ChangelogGrouped = () => {
                 </div>
               </CardContent>
             )}
-          </Card>
+          </LiquidGlass>
         ))}
       </div>
     </div>

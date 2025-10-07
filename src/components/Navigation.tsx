@@ -3,6 +3,7 @@ import { Home, Dumbbell, Timer, FileText, User } from 'lucide-react';
 import { useTimer } from '@/contexts/TimerContext';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { LiquidGlass } from '@/components/ui/liquid-glass';
+import { useMotionPresets } from '@/contexts/MotionContext';
 
 interface NavigationProps {
   activeTab: string;
@@ -140,7 +141,7 @@ const activeBackgroundVariants: Variants = {
 
 const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, hasNewChangelog }) => {
   const { isRunning } = useTimer();
-  const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const { shouldReduceMotion } = useMotionPresets();
 
   // Base tabs without Timer
   const baseTabs = [

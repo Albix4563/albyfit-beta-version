@@ -15,6 +15,7 @@ import {
   Shield,
 } from 'lucide-react';
 import ThemeSwitcher from './ThemeSwitcher';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 interface ProfileProps {
   onTabChange?: (tab: string) => void;
@@ -159,7 +160,7 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
       </div>
 
       {/* User Info */}
-      <div className="glass-effect rounded-2xl p-6 text-center">
+      <LiquidGlass intensity="heavy" size="lg" className="text-center">
         <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-sky-500 rounded-full mx-auto mb-4 flex items-center justify-center">
           <span className="text-2xl font-bold text-white">{initials}</span>
         </div>
@@ -176,8 +177,8 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
             <div className="text-sm text-slate-400">Giorni di Streak</div>
           </div>
         </div>
-      </div>      {/* Statistics */}
-      <div className="glass-effect rounded-2xl p-6">
+      </LiquidGlass>      {/* Statistics */}
+      <LiquidGlass intensity="medium" size="md">
         <h3 className="font-medium text-white mb-4 flex items-center gap-2">
           <BarChart3 className="w-5 h-5" />
           <span>Statistiche</span>
@@ -200,10 +201,10 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
             <div className="text-xs text-slate-400">Media/Settimana</div>
           </div>
         </div>
-      </div>
+      </LiquidGlass>
 
       {/* Top Workouts */}
-      {topWorkouts.length > 0 && (        <div className="glass-effect rounded-2xl p-6">
+      {topWorkouts.length > 0 && (        <LiquidGlass intensity="medium" size="md">
           <h3 className="font-medium text-white mb-4 flex items-center gap-2">
             <Trophy className="w-5 h-5" />
             <span>Allenamenti Preferiti</span>
@@ -219,9 +220,9 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
               </div>
             ))}
           </div>
-        </div>
+        </LiquidGlass>
       )}      {/* Account Info */}
-      <div className="glass-effect rounded-2xl p-6">
+      <LiquidGlass intensity="medium" size="md">
         <h3 className="font-medium text-white mb-4 flex items-center gap-2">
           <User className="w-5 h-5" />
           <span>Informazioni Account</span>
@@ -244,8 +245,8 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
             </span>
           </div>
         </div>
-      </div>      {/* Quick Actions */}
-      <div className="glass-effect rounded-2xl p-6">
+      </LiquidGlass>      {/* Quick Actions */}
+      <LiquidGlass intensity="medium" size="md">
         <h3 className="font-medium text-white mb-4 flex items-center gap-2">
           <Settings className="w-5 h-5" />
           <span>Azioni Rapide</span>
@@ -278,12 +279,12 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
             </div>
           </button>
         </div>
-      </div>
+      </LiquidGlass>
 
       <ThemeSwitcher />
 
       {/* Data Management */}
-      <div className="glass-effect rounded-2xl p-6">
+      <LiquidGlass intensity="medium" size="md">
         <h3 className="font-medium text-white mb-4 flex items-center gap-2">
           <Trash2 className="w-5 h-5" />
           <span>Gestione Dati</span>
@@ -313,7 +314,7 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
               </div>
             </div>
           </button>        </div>
-      </div>
+      </LiquidGlass>
 
       <button 
         onClick={handleSignOut}
@@ -328,7 +329,7 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
       {/* Dialog Reset Statistiche */}
       {showResetDialog && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="glass-effect rounded-2xl p-6 max-w-md w-full">
+          <LiquidGlass intensity="heavy" size="md" className="max-w-md w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center">
                 <RotateCcw className="w-5 h-5 text-orange-400" />
@@ -362,14 +363,14 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
                 {isResetting ? 'Resettando...' : 'Conferma Reset'}
               </button>
             </div>
-          </div>
+          </LiquidGlass>
         </div>
       )}
 
       {/* Dialog Reset Completo */}
       {showCompleteResetDialog && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="glass-effect rounded-2xl p-6 max-w-md w-full">
+          <LiquidGlass intensity="heavy" size="md" className="max-w-md w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5 text-red-400" />
@@ -405,7 +406,7 @@ const Profile: React.FC<ProfileProps> = ({ onTabChange }) => {
                 {isResetting ? 'Resettando...' : 'Elimina Tutto'}
               </button>
             </div>
-          </div>
+          </LiquidGlass>
         </div>
       )}
     </div>

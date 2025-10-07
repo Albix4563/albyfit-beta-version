@@ -27,6 +27,7 @@ import {
   SkipForward,
   Dumbbell
 } from 'lucide-react';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 interface Exercise {
   id: string;
@@ -578,7 +579,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
   if (!workout || !workout.exercises || workout.exercises.length === 0) {
     return (
       <div className="space-y-6">
-        <div className="glass-effect rounded-2xl p-8 text-center">
+        <LiquidGlass intensity="medium" size="lg" className="text-center">
           <AlertTriangle className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
           <h3 className="text-xl font-poppins font-bold text-white mb-4">
             Nessun Allenamento Selezionato
@@ -592,7 +593,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
           >
             Torna agli Allenamenti
           </button>
-        </div>
+        </LiquidGlass>
       </div>
     );
   }
@@ -609,7 +610,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
   if (!currentDisplayExercise) {
     return (
       <div className="space-y-6">
-        <div className="glass-effect rounded-2xl p-8 text-center">
+        <LiquidGlass intensity="medium" size="lg" className="text-center">
           <h3 className="text-xl font-poppins font-bold text-white mb-4">
             {workoutExercises.length > 0 ? 'Caricamento esercizio...' : 'Allenamento terminato o vuoto.'}
           </h3>
@@ -619,7 +620,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
           >
             Torna Indietro
           </button>
-        </div>
+        </LiquidGlass>
       </div>
     );
   }
@@ -654,7 +655,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
       )}
 
       {/* Progress Bar */}
-      <div className="glass-effect rounded-2xl p-6">
+      <LiquidGlass intensity="medium" size="md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-poppins font-bold text-white">
             {workoutName} {workoutPhase === 'skipped' && '(Esercizi Saltati)'}
@@ -673,10 +674,10 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
           Esercizio {completedExerciseIds.size + (currentDisplayExercise && !completedExerciseIds.has(currentDisplayExercise.id) && !skippedExerciseIds.has(currentDisplayExercise.id) ? 1 : 0)} di {workoutExercises.length}
           {workoutPhase === 'skipped' && getCurrentlySkippedExercises().length > 0 && ` (Recuperando ${getCurrentlySkippedExercises().length} saltati)`}
         </div>
-      </div>
+      </LiquidGlass>
 
       {/* Current Exercise */}
-      <div className="glass-effect rounded-2xl p-8 text-center">
+      <LiquidGlass intensity="heavy" size="lg" className="text-center">
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-2xl font-poppins font-bold text-white">
             {currentDisplayExercise.name}
@@ -873,10 +874,10 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
             </div>
           </div>
         )}
-      </div>
+      </LiquidGlass>
 
       {/* Exercise Overview */}
-      <div className="glass-effect rounded-2xl p-6">
+      <LiquidGlass intensity="medium" size="md">
         <h4 className="font-medium text-white mb-4">Esercizi di Oggi</h4>
         <div className="space-y-3">
           {workoutExercises.map((exercise, index) => {
@@ -919,7 +920,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
             );
           })}
         </div>
-      </div>
+      </LiquidGlass>
 
       <button 
         onClick={() => {
@@ -992,7 +993,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
 
       {/* End Workout Dialog */}
       <AlertDialog open={showEndWorkoutDialog} onOpenChange={setShowEndWorkoutDialog}>
-        <AlertDialogContent className="glass-effect border-slate-700">
+        <AlertDialogContent className="bg-slate-800 border-slate-700">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Termina Allenamento</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400">
@@ -1002,7 +1003,7 @@ const WorkoutTimer: React.FC<WorkoutTimerProps> = ({ onComplete, workout }) => {
           <AlertDialogFooter>
             <AlertDialogCancel 
               onClick={() => setShowEndWorkoutDialog(false)}
-              className="border-slate-600 text-slate-300 hover:bg-slate-700"
+              className="bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600"
             >
               Annulla
             </AlertDialogCancel>

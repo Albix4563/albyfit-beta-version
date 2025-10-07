@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -39,7 +40,7 @@ const AuthForm: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="glass-effect rounded-2xl p-8">
+        <LiquidGlass intensity="heavy" size="lg" variant="card">
           <div className="flex justify-center mb-6">
             <img 
               src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png" 
@@ -129,7 +130,7 @@ const AuthForm: React.FC = () => {
               }
             </button>
           </div>
-        </div>
+        </LiquidGlass>
       </div>
     </div>
   );

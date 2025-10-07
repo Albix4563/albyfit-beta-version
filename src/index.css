@@ -145,37 +145,23 @@
     @apply gpu-accelerated smooth-transition;
   }
 
-  /* Enhanced glass effects with better opacity */
-  .glass-effect {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    @apply gpu-accelerated;
-  }
-  
-  .glass-effect:hover {
-    background: rgba(15, 23, 42, 0.95);
-    border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-    transform: translateY(-1px) translateZ(0);
-  }
-  
-  /* Liquid glass morphism - improved visibility */
+  /* Enhanced glass effects utilities */
   .liquid-glass {
-    background: linear-gradient(135deg, 
-      rgba(15, 23, 42, 0.9), 
-      rgba(30, 41, 59, 0.85)
-    );
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    @apply gpu-accelerated;
+    display: none;
+  }
+
+  .workout-card {
+    display: none;
+  }
+
+  /* Modern liquid glass utilities */
+  .liquid-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.25), transparent 60%);
   }
   
   /* Readable mobile navigation glass effect */
@@ -446,8 +432,7 @@
 
   /* Button improvements */
   .btn-glass {
-    @apply glass-effect px-4 py-2 rounded-xl text-white font-medium gpu-accelerated;
-    @apply hover:scale-105 active:scale-95 transition-all duration-200;
+    display: none;
   }
 
   /* Media queries for readable mobile navigation */

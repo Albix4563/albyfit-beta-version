@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Bell, X, BookOpen, Settings } from 'lucide-react';
+import { Bell, X, BookOpen } from 'lucide-react';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 interface ChangelogNotificationProps {
   isVisible: boolean;
@@ -28,7 +29,12 @@ const ChangelogNotification: React.FC<ChangelogNotificationProps> = ({
 
   return (
     <div className="fixed top-4 right-4 left-4 z-50 max-w-sm mx-auto">
-      <div className="glass-effect rounded-2xl p-6 border border-primary/30 shadow-2xl animate-in slide-in-from-top-4">
+      <LiquidGlass
+        intensity="heavy"
+        variant="card"
+        size="md"
+        className="border border-primary/30 shadow-2xl animate-in slide-in-from-top-4"
+      >
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 primary-gradient rounded-full flex items-center justify-center">
@@ -48,7 +54,7 @@ const ChangelogNotification: React.FC<ChangelogNotificationProps> = ({
         </div>
 
         <p className="text-sm text-slate-300 mb-4">
-          Scopri le nuove funzionalità e miglioramenti introdotti nell'ultima versione di Albyfit. 
+          Scopri le nuove funzionalità e miglioramenti introdotti nell'ultima versione di Albyfit.
           {showNotificationPrompt && ' Abilita le notifiche push per rimanere aggiornato sui futuri rilasci!'}
         </p>
 
@@ -77,7 +83,7 @@ const ChangelogNotification: React.FC<ChangelogNotificationProps> = ({
             Sistema di notifiche push per PWA e browser • Created by Albix4563
           </p>
         </div>
-      </div>
+      </LiquidGlass>
     </div>
   );
 };

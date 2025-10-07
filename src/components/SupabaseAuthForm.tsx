@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useSupabaseAuth } from '@/hooks/useSupabaseAuth';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 const SupabaseAuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -46,7 +47,7 @@ const SupabaseAuthForm: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="glass-effect rounded-2xl p-8 w-full max-w-md animate-watery-in">
+      <LiquidGlass size="lg" intensity="heavy" variant="card" accentTone="cool" className="w-full max-w-md animate-watery-in">
         <div className="text-center mb-8">
           <img 
             src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png" 
@@ -133,7 +134,7 @@ const SupabaseAuthForm: React.FC = () => {
         </div>        <div className="mt-8 text-xs text-slate-500 text-center">
           <p>v0.9.5 [FINAL CANDIDATE RELEASE] - Created by Albix4563</p>
         </div>
-      </div>
+      </LiquidGlass>
     </div>
   );
 };

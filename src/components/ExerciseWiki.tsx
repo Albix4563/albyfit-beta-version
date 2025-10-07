@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 import { 
   Dumbbell, 
   Heart, 
@@ -134,7 +135,7 @@ const ExerciseWiki: React.FC = () => {
       <h2 className="text-xl font-poppins font-bold text-white">Enciclopedia Esercizi</h2>
 
       {/* Search */}
-      <div className="glass-effect rounded-xl p-4">
+      <LiquidGlass intensity="medium" size="sm" className="rounded-xl">
         <input
           type="text"
           placeholder="Cerca esercizi o gruppi muscolari..."
@@ -142,7 +143,7 @@ const ExerciseWiki: React.FC = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-400"
         />
-      </div>
+      </LiquidGlass>
 
       {/* Categories */}
       <div className="flex overflow-x-auto space-x-2 pb-2">
@@ -164,7 +165,7 @@ const ExerciseWiki: React.FC = () => {
       {/* Exercises */}
       <div className="space-y-4">
         {filteredExercises.map((exercise, index) => (
-          <div key={index} className="glass-effect rounded-xl p-6">
+          <LiquidGlass key={index} intensity="medium" size="md" className="rounded-xl">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-lg font-medium text-white">{exercise.name}</h3>
@@ -208,7 +209,7 @@ const ExerciseWiki: React.FC = () => {
                 Immagini Esercizio
               </button>
             </div>
-          </div>
+          </LiquidGlass>
         ))}
       </div>      {filteredExercises.length === 0 && (
         <div className="text-center py-8">

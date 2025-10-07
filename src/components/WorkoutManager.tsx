@@ -15,6 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 interface WorkoutManagerProps {
   onStartWorkout?: (workout: Workout) => void;
@@ -528,7 +529,7 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
           </button>
         </div>
         
-        <div className="glass-effect rounded-2xl p-6">
+        <LiquidGlass intensity="medium" size="md">
           <div className="space-y-4">
             <input 
               type="text" 
@@ -547,7 +548,7 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
               </button>
             </div>
           </div>
-        </div>
+        </LiquidGlass>
       </div>
     );
   }
@@ -949,27 +950,29 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
 
         {/* Dialog di conferma eliminazione allenamento */}
         <AlertDialog open={!!workoutToDelete} onOpenChange={() => setWorkoutToDelete(null)}>
-          <AlertDialogContent className="glass-effect border-slate-700">
-            <AlertDialogHeader>
-              <AlertDialogTitle className="text-white">Elimina Allenamento</AlertDialogTitle>
-              <AlertDialogDescription className="text-slate-400">
-                Sei sicuro di voler eliminare questo allenamento? Questa azione non può essere annullata.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel 
-                onClick={() => setWorkoutToDelete(null)}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700"
-              >
-                Annulla
-              </AlertDialogCancel>
-              <AlertDialogAction 
-                onClick={confirmDeleteWorkout}
-                className="bg-red-500 hover:bg-red-600 text-white"
-              >
-                Elimina
-              </AlertDialogAction>
-            </AlertDialogFooter>
+          <AlertDialogContent className="border-none p-0 overflow-hidden">
+            <LiquidGlass intensity="heavy" size="lg" className="!p-6">
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-white">Elimina Allenamento</AlertDialogTitle>
+                <AlertDialogDescription className="text-slate-400">
+                  Sei sicuro di voler eliminare questo allenamento? Questa azione non può essere annullata.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel 
+                  onClick={() => setWorkoutToDelete(null)}
+                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                >
+                  Annulla
+                </AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={confirmDeleteWorkout}
+                  className="bg-red-500 hover:bg-red-600 text-white"
+                >
+                  Elimina
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </LiquidGlass>
           </AlertDialogContent>
         </AlertDialog>
       </div>
@@ -989,7 +992,7 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
         </div>
 
       {workouts.length === 0 ? (
-        <div className="glass-effect rounded-2xl p-6 text-center">
+        <LiquidGlass intensity="medium" size="md" className="text-center">
           <h3 className="text-lg font-poppins font-semibold text-white mb-2">
             Nessun Allenamento
           </h3>
@@ -1002,7 +1005,7 @@ const WorkoutManager: React.FC<WorkoutManagerProps> = ({ onStartWorkout }) => { 
           >
             Crea Allenamento
           </button>
-        </div>
+        </LiquidGlass>
       ) : (
         <div className="space-y-4">
           {workouts.map((workout) => (

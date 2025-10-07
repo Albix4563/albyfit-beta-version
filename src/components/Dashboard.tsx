@@ -22,14 +22,14 @@ interface ConfirmModalProps {
   onCancel: () => void;
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({ 
-  isOpen, 
-  title, 
-  message, 
-  confirmText, 
-  confirmColor, 
-  onConfirm, 
-  onCancel 
+const ConfirmModal: React.FC<ConfirmModalProps> = ({
+  isOpen,
+  title,
+  message,
+  confirmText,
+  confirmColor,
+  onConfirm,
+  onCancel
 }) => {
   const colorClasses = {
     red: 'bg-red-500 hover:bg-red-600 focus:ring-red-500',
@@ -44,24 +44,25 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            initial={{ scale: 0.92, opacity: 0, y: 24 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ 
-              type: "spring", 
-              damping: 25, 
-              stiffness: 400, 
-              mass: 0.8 
+            exit={{ scale: 0.92, opacity: 0, y: 24 }}
+            transition={{
+              type: 'spring',
+              damping: 24,
+              stiffness: 360,
+              mass: 0.9
             }}
             className="w-full max-w-md"
           >
-            <LiquidGlass 
-              intensity="heavy" 
+            <LiquidGlass
+              intensity="heavy"
               variant="card"
-              className="p-6"
+              size="md"
+              accentTone="cool"
             >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-bold text-white font-poppins">
@@ -74,19 +75,17 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              
+
               <p className="text-slate-300 mb-6 leading-relaxed">
                 {message}
               </p>
-              
+
               <div className="flex gap-3 justify-end">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onCancel}
-                  className="px-5 py-2.5 rounded-xl bg-slate-600/50 hover:bg-slate-600/70 
-                           text-white font-medium transition-all duration-200 
-                           border border-slate-500/50 hover:border-slate-400/50"
+                  className="px-5 py-2.5 rounded-xl bg-slate-600/50 hover:bg-slate-600/70 text-white font-medium transition-all duration-200 border border-slate-500/50 hover:border-slate-400/50"
                 >
                   Annulla
                 </motion.button>
@@ -94,10 +93,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onConfirm}
-                  className={`px-5 py-2.5 rounded-xl text-white font-semibold 
-                            transition-all duration-200 focus:ring-2 focus:ring-offset-2 
-                            focus:ring-offset-slate-800 shadow-lg 
-                            ${colorClasses[confirmColor]}`}
+                  className={`px-5 py-2.5 rounded-xl text-white font-semibold transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 shadow-lg ${colorClasses[confirmColor]}`}
                 >
                   {confirmText}
                 </motion.button>
@@ -115,10 +111,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
   const [showResetModal, setShowResetModal] = useState(false);
   const [showClearModal, setShowClearModal] = useState(false);
 
-  // Calcola statistiche dall'ultimo mese
   const lastMonth = new Date();
   lastMonth.setMonth(lastMonth.getMonth() - 1);
-  
+
   const recentWorkouts = workoutSessions
     .filter(session => new Date(session.start_time) >= lastMonth && session.completed)
     .slice(-3)
@@ -131,26 +126,25 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
 
   const quickWorkouts = workouts.slice(0, 3);
 
-  // Calcola streak attuale
   const calculateStreak = () => {
     if (workoutSessions.length === 0) return 0;
-    
+
     const completedSessions = workoutSessions
       .filter(session => session.completed)
       .sort((a, b) => new Date(b.start_time).getTime() - new Date(a.start_time).getTime());
-    
+
     if (completedSessions.length === 0) return 0;
-    
+
     let streak = 0;
     let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    
+
     for (const session of completedSessions) {
       const sessionDate = new Date(session.start_time);
       sessionDate.setHours(0, 0, 0, 0);
-      
+
       const daysDiff = Math.floor((currentDate.getTime() - sessionDate.getTime()) / (1000 * 60 * 60 * 24));
-      
+
       if (daysDiff <= streak + 1) {
         streak++;
         currentDate = sessionDate;
@@ -158,7 +152,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
         break;
       }
     }
-    
+
     return streak;
   };
 
@@ -182,7 +176,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
       await refreshAuth();
       toast.success('Cronologia allenamenti eliminata con successo!');
     } catch (error) {
-      console.error('Errore nell\'eliminazione della cronologia:', error);
+      console.error("Errore nell'eliminazione della cronologia:", error);
       toast.error('Errore nell\'eliminazione della cronologia');
     }
   };
@@ -191,7 +185,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
     setShowResetModal(false);
 
     try {
-      // Elimina tutte le sessioni completate per resettare le statistiche
       const { error } = await supabase
         .from('workout_sessions')
         .delete()
@@ -210,12 +203,11 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
 
   return (
     <div className="space-y-6">
-      {/* Welcome Section */}
-      <div className="glass-effect rounded-2xl p-6">
+      <LiquidGlass intensity="heavy" size="lg" variant="card" accentTone="cool" padding="p-6">
         <div className="flex items-center justify-center mb-4">
-          <img 
-            src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png" 
-            alt="Albyfit Logo" 
+          <img
+            src="/lovable-uploads/8281de93-96f3-4e5c-938a-020cbe3e553d.png"
+            alt="Albyfit Logo"
             className="w-32 h-32 object-contain"
           />
         </div>
@@ -223,10 +215,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
           Bentornato su Albyfit{user?.user_metadata?.full_name ? `, ${user.user_metadata.full_name.split(' ')[0]}` : ''}!
         </h2>
         <p className="text-slate-400 mb-4 text-center">
-          {workouts.length > 0 
-            ? 'Pronto per il tuo prossimo allenamento?' 
-            : 'Inizia creando il tuo primo allenamento!'
-          }
+          {workouts.length > 0
+            ? 'Pronto per il tuo prossimo allenamento?'
+            : 'Inizia creando il tuo primo allenamento!'}
         </p>
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
@@ -242,9 +233,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
             <div className="text-sm text-slate-400">Media/settimana</div>
           </div>
         </div>
-        {/* Pulsante Reset Statistiche con Modal Personalizzato */}
         <div className="flex justify-center mt-4">
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowResetModal(true)}
@@ -254,56 +244,59 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
             Resetta Statistiche
           </motion.button>
         </div>
-      </div>
+      </LiquidGlass>
 
-      {/* Quick Start */}
       {quickWorkouts.length > 0 ? (
         <div>
           <h3 className="text-lg font-poppins font-semibold text-white mb-4">I Tuoi Allenamenti</h3>
           <div className="grid gap-4">
             {quickWorkouts.map((workout) => (
-              <div key={workout.id} className="workout-card">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium text-white">{workout.title}</h4>
-                    <p className="text-sm text-slate-400">
-                      {workout.exercises?.length || 0} esercizi
-                    </p>
-                  </div>
-                  <button 
-                    onClick={() => handleStartSpecificWorkout(workout)}
-                    className="accent-gradient text-white px-4 py-2 rounded-lg font-medium hover:scale-105 transition-transform"
-                  >
-                    Inizia
-                  </button>
+              <LiquidGlass
+                key={workout.id}
+                intensity="medium"
+                variant="card"
+                size="md"
+                className="flex justify-between items-center"
+                padding="p-4"
+              >
+                <div>
+                  <h4 className="font-medium text-white">{workout.title}</h4>
+                  <p className="text-sm text-slate-400">
+                    {workout.exercises?.length || 0} esercizi
+                  </p>
                 </div>
-              </div>
+                <button
+                  onClick={() => handleStartSpecificWorkout(workout)}
+                  className="accent-gradient text-white px-4 py-2 rounded-lg font-medium hover:scale-105 transition-transform"
+                >
+                  Inizia
+                </button>
+              </LiquidGlass>
             ))}
           </div>
         </div>
       ) : (
-        <div className="glass-effect rounded-2xl p-6 text-center">
+        <LiquidGlass intensity="medium" size="md" className="text-center" padding="p-6">
           <h3 className="text-lg font-poppins font-semibold text-white mb-2">
             Nessun Allenamento
           </h3>
           <p className="text-slate-400 mb-4">
             Crea il tuo primo allenamento per iniziare!
           </p>
-          <button 
+          <button
             onClick={() => onTabChange('workouts')}
             className="accent-gradient text-white px-6 py-3 rounded-lg font-medium hover:scale-105 transition-transform"
           >
             Crea Allenamento
           </button>
-        </div>
+        </LiquidGlass>
       )}
 
-      {/* Recent Workouts */}
       {recentWorkouts.length > 0 && (
         <div>
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-poppins font-semibold text-white">Allenamenti Recenti</h3>
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setShowClearModal(true)}
@@ -315,33 +308,37 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
           </div>
           <div className="space-y-3">
             {recentWorkouts.map((session) => (
-              <div key={session.id} className="workout-card">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium text-white">{session.workout_title}</h4>
-                    <p className="text-sm text-slate-400">
-                      {new Date(session.start_time).toLocaleDateString('it-IT')} • {Math.round((session.total_duration || 0) / 60)} min
-                    </p>
+              <LiquidGlass
+                key={session.id}
+                intensity="light"
+                variant="card"
+                size="md"
+                className="flex justify-between items-center"
+                padding="p-4"
+              >
+                <div>
+                  <h4 className="font-medium text-white">{session.workout_title}</h4>
+                  <p className="text-sm text-slate-400">
+                    {new Date(session.start_time).toLocaleDateString('it-IT')} • {Math.round((session.total_duration || 0) / 60)} min
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-medium text-green-400 flex items-center gap-1">
+                    <Check className="w-4 h-4" />
+                    Completato
                   </div>
-                  <div className="text-right">
-                    <div className="text-sm font-medium text-green-400 flex items-center gap-1">
-                      <Check className="w-4 h-4" />
-                      Completato
-                    </div>
-                    <div className="text-xs text-slate-500">
-                      {session.end_time ? new Date(session.end_time).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) : ''}
-                    </div>
+                  <div className="text-xs text-slate-500">
+                    {session.end_time ? new Date(session.end_time).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) : ''}
                   </div>
                 </div>
-              </div>
+              </LiquidGlass>
             ))}
           </div>
         </div>
       )}
 
-      {/* Motivational Message */}
       {workoutSessions.length === 0 && (
-        <div className="glass-effect rounded-2xl p-6 text-center">
+        <LiquidGlass intensity="medium" size="md" className="text-center" padding="p-6">
           <h3 className="text-lg font-poppins font-semibold text-white mb-2 flex items-center justify-center gap-2">
             <Rocket className="w-5 h-5" />
             Inizia il Tuo Viaggio Fitness
@@ -349,10 +346,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
           <p className="text-slate-400">
             Crea il tuo primo allenamento e inizia a tracciare i tuoi progressi!
           </p>
-        </div>
+        </LiquidGlass>
       )}
 
-      {/* Modal Reset Statistiche */}
       <ConfirmModal
         isOpen={showResetModal}
         title="Reset Statistiche"
@@ -363,7 +359,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onStartWorkout, onTabChange }) =>
         onCancel={() => setShowResetModal(false)}
       />
 
-      {/* Modal Elimina Cronologia */}
       <ConfirmModal
         isOpen={showClearModal}
         title="Elimina Cronologia"

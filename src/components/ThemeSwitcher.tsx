@@ -3,6 +3,7 @@ import React from 'react';
 import { useTheme, type Theme } from '@/contexts/ThemeContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Palette } from 'lucide-react';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
 
 const themes = [
   { value: 'blue', label: 'Blu (Default)', color: 'hsl(221 83% 53%)' },
@@ -23,7 +24,7 @@ const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="glass-effect rounded-2xl p-6">
+    <LiquidGlass intensity="medium" size="md">
       <h3 className="font-medium text-white mb-4 flex items-center gap-2">
         <Palette className="w-5 h-5" />
         <span>Tema Applicazione</span>
@@ -36,7 +37,7 @@ const ThemeSwitcher: React.FC = () => {
           {themes.map((t) => (
             <SelectItem key={t.value} value={t.value}>
               <div className="flex items-center gap-2">
-                <div 
+                <div
                   className="w-4 h-4 rounded-full"
                   style={{ backgroundColor: t.color }}
                 />
@@ -46,7 +47,7 @@ const ThemeSwitcher: React.FC = () => {
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </LiquidGlass>
   );
 };
 

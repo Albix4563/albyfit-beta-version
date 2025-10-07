@@ -3,6 +3,9 @@ import { useSupabaseAuth } from '@/hooks/useSupabaseAuth';
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from '@/components/ui/textarea';
 import { X, Plus, Calendar, StickyNote, FileText } from 'lucide-react';
+import { LiquidGlass } from '@/components/ui/liquid-glass';
+import { formatDate } from '@/lib/utils';
+import { useExerciseNotes } from '@/hooks/useExerciseNotes';
 
 interface ExerciseNotesProps {
   exerciseName: string;
@@ -43,14 +46,6 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
     });
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('it-IT', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-  };
-
   const groupNotesByDate = () => {
     const grouped = existingNotes.reduce((acc, note) => {
       if (!acc[note.date]) {
@@ -65,15 +60,12 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-xl font-poppins font-bold text-white flex items-center">
-            <StickyNote className="mr-2" size={24} />
-            Note per {exerciseName}
-          </h2>
-          <p className="text-slate-400 text-sm">Gestisci le tue note di allenamento</p>
-        </div>
-        <button 
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-poppins font-bold text-white flex items-center">
+          <StickyNote className="mr-2" size={24} />
+          Note per {exerciseName}
+        </h2>
+        <button
           onClick={onClose}
           className="text-slate-400 hover:text-white transition-colors"
         >
@@ -82,7 +74,7 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
       </div>
 
       {/* Aggiungi nuova nota */}
-      <div className="glass-effect rounded-2xl p-6">
+      <LiquidGlass intensity="medium" size="md" padding="p-6">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-medium text-white">Aggiungi Nota</h3>
           {!isAddingNote && (
@@ -140,7 +132,8 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
               </button>
             </div>
           </div>
-        )}        {!isAddingNote && todayNotes.length > 0 && (
+        )}
+        {!isAddingNote && todayNotes.length > 0 && (
           <div className="bg-slate-700/30 rounded-lg p-4">
             <p className="text-sm text-slate-300 mb-2 flex items-center gap-2">
               <FileText className="w-4 h-4" />
@@ -153,11 +146,11 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
             ))}
           </div>
         )}
-      </div>
+      </LiquidGlass>
 
       {/* Storico note */}
       {existingNotes.length > 0 && (
-        <div className="glass-effect rounded-2xl p-6">
+        <LiquidGlass intensity="light" size="md" padding="p-6">
           <h3 className="text-lg font-medium text-white mb-4">Storico Note</h3>
           <div className="space-y-4 max-h-96 overflow-y-auto">
             {groupNotesByDate().map(([date, notes]) => (
@@ -169,8 +162,8 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
                 </div>
                 <div className="space-y-2">
                   {notes.map((note) => (
-                    <div 
-                      key={note.id} 
+                    <div
+                      key={note.id}
                       className="bg-slate-700/30 rounded-lg p-3 text-sm text-slate-300"
                     >
                       {note.note}
@@ -186,17 +179,17 @@ const ExerciseNotes: React.FC<ExerciseNotesProps> = ({ exerciseName, onClose }) 
               </div>
             ))}
           </div>
-        </div>
+        </LiquidGlass>
       )}
 
       {existingNotes.length === 0 && (
-        <div className="glass-effect rounded-2xl p-6 text-center">
+        <LiquidGlass intensity="light" size="md" className="text-center">
           <StickyNote className="mx-auto mb-4 text-slate-400" size={48} />
           <h3 className="text-lg font-medium text-white mb-2">Nessuna Nota</h3>
           <p className="text-slate-400">
             Non hai ancora salvato note per questo esercizio.
           </p>
-        </div>
+        </LiquidGlass>
       )}
     </div>
   );
