@@ -25,18 +25,15 @@ const CHANGELOG_ENTRIES = [
   {
     version: "0.9.5 [FINAL CANDIDATE RELEASE]",
     date: "2025-10-07",
-    groups: [
+    type: "patch" as const,
+    changes: [
       {
-        title: "Miglioramenti e Correzioni",
-        items: [
-          "Layout: Risolto un problema di sovrapposizione della barra di navigazione che nascondeva i contenuti in fondo alla pagina.",
-        ]
+        type: "improvement" as const,
+        description: "🛠️ Layout: Risolto un problema di sovrapposizione della barra di navigazione che nascondeva i contenuti in fondo alla pagina."
       },
       {
-        title: "Funzionalità Rimosse",
-        items: [
-          "AI: Rimossa completamente la funzione di 'Analisi Intelligente Esercizi' per l'importazione da testo.",
-        ]
+        type: "fix" as const,
+        description: "🗑️ AI: Rimossa completamente la funzione di 'Analisi Intelligente Esercizi' per l'importazione da testo."
       }
     ]
   },
@@ -278,7 +275,7 @@ const ChangelogGrouped = () => {
                     variant={entry.type === 'major' ? 'default' : 'secondary'}
                     className={`${getTypeColor(entry.type)} border-none`}
                   >
-                    {entry.type.toUpperCase()}
+                    {entry.type?.toUpperCase() || 'UPDATE'}
                   </Badge>
                 </div>
                 {expandedVersions.has(entry.version) ? 
