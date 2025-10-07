@@ -1,6 +1,12 @@
 # Changelog
 
-Tutte le modifiche importanti a questo progetto verranno documentate in questo file.
+Tutte le modifiche notevoli a questo progetto saranno documentate in questo file.
+
+## [0.9.5] - 2025-10-07 [FINAL CANDIDATE RELEASE]
+### Correzioni
+- **Layout**: Risolto un problema critico di sovrapposizione della barra di navigazione inferiore che nascondeva parte del contenuto in alcune sezioni (es. Profilo).
+### Funzionalità Rimosse
+- **AI**: Rimossa completamente la funzionalità "Analisi Intelligente Esercizi" dalla sezione allenamenti per semplificare l'interfaccia.
 
 ## [0.9.3] - 2025-10-02 [RELEASE CANDIDATE]
 

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useSupabaseAuth } from './useSupabaseAuth';
 import { usePushNotifications } from './usePushNotifications';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ChangelogEntry {
   version: string;
@@ -9,12 +10,51 @@ interface ChangelogEntry {
   type: 'major' | 'minor' | 'patch';
 }
 
-// Updated changelog entries with v0.9.3 [RELEASE CANDIDATE] as latest
-const CHANGELOG_ENTRIES: ChangelogEntry[] = [
+// Updated changelog entries with v0.9.5 [FINAL CANDIDATE RELEASE] as latest
+const changelogData = [
+  {
+    version: "0.9.5 [FINAL CANDIDATE RELEASE]",
+    date: "2025-10-07",
+    groups: [
+      {
+        title: "Nuove funzionalità",
+        items: [
+          "Aggiunta nuova funzione di ricerca per i changelog",
+          "Miglioramento dell'interfaccia utente per la navigazione",
+          "Aggiunta supporto per le notifiche push più avanzato"
+        ]
+      },
+      {
+        title: "Correzioni di bug",
+        items: [
+          "Risolto problema di compatibilità con il browser",
+          "Corretto errore di visualizzazione dei gruppi",
+          "Migliorata la gestione delle notifiche push"
+        ]
+      }
+    ]
+  },
   {
     version: "0.9.3 [RELEASE CANDIDATE]",
-    date: "6 Ottobre 2025",
-    type: "major"
+    date: "2025-10-02",
+    groups: [
+      {
+        title: "Nuove funzionalità",
+        items: [
+          "Aggiunta nuova funzione di ricerca per i changelog",
+          "Miglioramento dell'interfaccia utente per la navigazione",
+          "Aggiunta supporto per le notifiche push più avanzato"
+        ]
+      },
+      {
+        title: "Correzioni di bug",
+        items: [
+          "Risolto problema di compatibilità con il browser",
+          "Corretto errore di visualizzazione dei gruppi",
+          "Migliorata la gestione delle notifiche push"
+        ]
+      }
+    ]
   },
   {
     version: "0.9.2 [BETA]",
@@ -45,7 +85,7 @@ export const useChangelogNotifications = () => {
     setLastSeenVersion(lastSeen);
 
     // Verifica se ci sono nuovi changelog
-    const latestVersion = CHANGELOG_ENTRIES[0]?.version;
+    const latestVersion = changelogData[0]?.version;
     const hasNew = !lastSeen || lastSeen !== latestVersion;
     setHasNewChangelog(hasNew);
 
@@ -76,7 +116,7 @@ export const useChangelogNotifications = () => {
   const markChangelogAsSeen = () => {
     if (!user) return;
 
-    const latestVersion = CHANGELOG_ENTRIES[0]?.version;
+    const latestVersion = changelogData[0]?.version;
     if (latestVersion) {
       const userKey = `changelog_last_seen_${user.id}`;
       localStorage.setItem(userKey, latestVersion);
@@ -96,7 +136,7 @@ export const useChangelogNotifications = () => {
     setShowNotificationPrompt(false);
     
     if (granted === 'granted' && hasNewChangelog) {
-      const latestVersion = CHANGELOG_ENTRIES[0]?.version;
+      const latestVersion = changelogData[0]?.version;
       if (latestVersion && user) {
         sendChangelogNotification(latestVersion);
         // Segna la notifica come inviata per questa versione+utente
@@ -118,7 +158,7 @@ export const useChangelogNotifications = () => {
     handleNotificationRequest,
     dismissNotificationPrompt,
     dismissNotification, // Nuova funzione per chiudere completamente la notifica
-    latestVersion: CHANGELOG_ENTRIES[0]?.version || null,
+    latestVersion: changelogData[0]?.version || null,
     notificationPermission: permission,
     notificationSupported: isSupported
   };

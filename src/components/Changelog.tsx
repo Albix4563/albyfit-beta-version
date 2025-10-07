@@ -14,6 +14,7 @@ import {
   X
 } from 'lucide-react';
 import { LiquidGlass } from '@/components/ui/liquid-glass';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ChangelogProps {
   onClose?: () => void;
@@ -32,10 +33,10 @@ interface Release {
 
 const Changelog: React.FC<ChangelogProps> = ({ onClose }) => {
   const [hasSeenLatest, setHasSeenLatest] = useState(false);
-  const [expandedReleases, setExpandedReleases] = useState(new Set(['0.9.3 [RELEASE CANDIDATE]']));
+  const [expandedReleases, setExpandedReleases] = useState(new Set(['0.9.5 [FINAL CANDIDATE RELEASE]']));
   const [showNewFeatureModal, setShowNewFeatureModal] = useState(false);
 
-  const currentVersion = "0.9.3 [RELEASE CANDIDATE]";
+  const currentVersion = "0.9.5 [FINAL CANDIDATE RELEASE]";
 
   useEffect(() => {
     const lastSeenVersion = localStorage.getItem('lastSeenVersion');
@@ -63,6 +64,15 @@ const Changelog: React.FC<ChangelogProps> = ({ onClose }) => {
   };
 
   const releases: Release[] = [
+    {
+      version: "0.9.5 [FINAL CANDIDATE RELEASE]",
+      date: "2025-10-07",
+      isLatest: true,
+      changes: [
+        { type: 'FIX', description: 'Risolto un problema di sovrapposizione della barra di navigazione in alcune sezioni.' },
+        { type: 'REMOVED', description: 'Rimossa la funzionalità di importazione esercizi tramite analisi AI.' },
+      ]
+    },
     {
       version: "0.9.3 [RELEASE CANDIDATE]",
       date: "2 Ottobre 2025",

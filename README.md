@@ -1,7 +1,8 @@
-# Albyfit - Professional Fitness Tracker
+# Albyfit Beta
 
-**Version**: 0.9.3 [RELEASE CANDIDATE]
-**Created by**: Albix4563
+**Version**: 0.9.5 [FINAL CANDIDATE RELEASE]
+
+This is the beta version of Albyfit, a modern fitness tracking application.
 
 ## Descrizione
 

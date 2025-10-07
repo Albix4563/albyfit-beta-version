@@ -23,8 +23,26 @@ interface Change {
 
 const CHANGELOG_ENTRIES = [
   {
+    version: "0.9.5 [FINAL CANDIDATE RELEASE]",
+    date: "2025-10-07",
+    groups: [
+      {
+        title: "Miglioramenti e Correzioni",
+        items: [
+          "Layout: Risolto un problema di sovrapposizione della barra di navigazione che nascondeva i contenuti in fondo alla pagina.",
+        ]
+      },
+      {
+        title: "Funzionalità Rimosse",
+        items: [
+          "AI: Rimossa completamente la funzione di 'Analisi Intelligente Esercizi' per l'importazione da testo.",
+        ]
+      }
+    ]
+  },
+  {
     version: "0.9.3 [RELEASE CANDIDATE]",
-    date: "2 Ottobre 2025",
+    date: "2025-10-02",
     type: "major" as const,
     changes: [
       {
@@ -123,7 +141,7 @@ const getChangeIcon = (type: ChangeType) => {
 };
 
 const ChangelogGrouped = () => {
-  const [expandedVersions, setExpandedVersions] = useState<Set<string>>(new Set(['0.9.3 [RELEASE CANDIDATE]']));
+  const [expandedVersions, setExpandedVersions] = useState<Set<string>>(new Set(['0.9.5 [FINAL CANDIDATE RELEASE]']));
   const [isSendingNotification, setIsSendingNotification] = useState(false);
   const { user } = useSupabaseAuth();
   const { toast } = useToast();
