@@ -160,7 +160,7 @@ const AppContent = () => {
         />
       </div>
 
-      <div className="container mx-auto px-4 pb-20 relative z-10">
+      <div className="container mx-auto px-4 pb-32 relative z-10">
         <header className="py-6">
           <LiquidGlass intensity="heavy" className="p-4">
             <div className="flex items-center justify-between">
